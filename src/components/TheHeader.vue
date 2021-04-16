@@ -1,14 +1,19 @@
 <template>
   <header>
-    <h1>test</h1>
+    <h1>{{ login }}</h1>
   </header>
 </template>
 
 <script>
 export default {
+  props: {
+    login: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      title: ''
     };
   }
 }
@@ -17,15 +22,18 @@ export default {
 <style scoped>
 header {
   width: 100%;
-  height: 10rem;
+  height: 7rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  background-color: #14005e;
+  background-color: #0E2851;
+  margin: 0;
+  padding: 0;
 }
 
 header h1 {
   color: white;
-  margin: 0;
+  padding-right: 2rem;
+
 }
 </style>

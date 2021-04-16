@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-header></the-header>
+    <the-header :login="loginSignUp"></the-header>
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
@@ -11,16 +11,16 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-
   components: {
     HelloWorld
 
   },
   data() {
     return {
-
+      loginSignUp: 'Login / Sign Up'
     };
   },
+
 }
 </script>
 

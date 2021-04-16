@@ -26,13 +26,14 @@ header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: #0E2851;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 0;
   padding: 0;
 }
 
 header h1 {
-  color: white;
+  color: black;
   padding-right: 2rem;
 
 }

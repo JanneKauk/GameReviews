@@ -17,7 +17,7 @@ export default {
   name: 'App',
   components: {
     HelloWorld,
-    BaseGame
+    BaseGame,
     GameList
 
   },

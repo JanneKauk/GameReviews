@@ -3,16 +3,19 @@
     <the-header :login="loginSignUp"></the-header>
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <base-game></base-game>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import BaseGame from './components/Layout/BaseGame.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    BaseGame
 
   },
   data() {

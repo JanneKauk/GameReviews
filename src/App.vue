@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <the-header :login="loginSignUp"></the-header>
-    <img alt="Vue logo" src="./assets/logo.png">
-    <GameList/>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
     <base-game></base-game>
+    <router-view></router-view>
+<!--    <GameList/>-->
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
   </div>
 </template>
 
 <script>
-import GameList from './components/Lists/GameList.vue'
+// import GameList from './components/Lists/GameList.vue'
 import HelloWorld from './components/HelloWorld.vue'
 import BaseGame from './components/Layout/BaseGame.vue'
 
@@ -18,7 +20,7 @@ export default {
   components: {
     HelloWorld,
     BaseGame,
-    GameList
+    // GameList
 
   },
   data() {

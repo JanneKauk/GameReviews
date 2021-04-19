@@ -1,6 +1,9 @@
 <template>
   <header>
-    <h1>{{ login }}</h1>
+    <div>
+      <router-link to="/Login"><h1>{{ login }}</h1></router-link>
+    </div>
+
   </header>
 </template>
 

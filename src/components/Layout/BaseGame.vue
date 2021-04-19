@@ -9,6 +9,7 @@
         <button id="4" @click="starChange(4)">★</button>
         <button id="5" @click="starChange(5)">★</button>
         <router-link to="/home">Graphics</router-link>
+        <router-link to="/notFound"> Not Found link</router-link>
         <label for="category"></label><select id="category" name="category" v-model="category">
         <option value="Graphics">Graphics</option>
         <option value="Gameplay">Gameplay</option>

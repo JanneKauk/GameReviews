@@ -2,18 +2,16 @@
   <div>
     <nav class="container">
       <div>
-        {{test}}
-        <button id="1" @click="starChange(1)">★</button>
-        <button id="2" @click="starChange(2)">★</button>
-        <button id="3" @click="starChange(3)">★</button>
-        <button id="4" @click="starChange(4)">★</button>
-        <button id="5" @click="starChange(5)">★</button>
         <router-link to="/home">Graphics</router-link>
         <router-link to="/notFound"> Not Found link</router-link>
-        <label for="category"></label><select id="category" name="category" v-model="category">
+        <router-link to="/home">Graphics</router-link>
+        <router-link to="/notFound"> Not Found link</router-link>
+        <router-link to="/home">Graphics</router-link>
+        <!-- <label for="category"></label>
+        <select id="category" name="category" v-model="category">
         <option value="Graphics">Graphics</option>
         <option value="Gameplay">Gameplay</option>
-      </select>
+      </select> -->
       </div>
       <div>
         <label>
@@ -35,19 +33,6 @@ export default {
     };
   },
   methods: {
-    starChange(id) {
-      if (id === 1) {
-        this.test = '★✰✰✰✰';
-      } else if (id === 2){
-        this.test = '★★✰✰✰';
-      } else if (id === 3) {
-        this.test = '★★★✰✰'
-      } else if (id === 4){
-        this.test = '★★★★✰';
-      } else if (id === 5) {
-        this.test = '★★★★★'
-      }
-    }
   }
 }
 </script>
@@ -85,7 +70,20 @@ button {
 
 a {
   text-decoration: none;
+  padding: 0.75rem 1.5rem;
   background: transparent;
   color: black;
+  border: 0.5px solid rgb(228, 225, 225);
+  cursor: pointer;
+  /* border-radius: 30px; */
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+a:hover,
+a:active {
+  background-color: blue;
+  border-color: black;
+
 }
 </style>

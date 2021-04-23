@@ -25,7 +25,7 @@ export default {
     };
   },
   created: function() {
-    axios.get('https://jsonplaceholder.typicode.com/users').then(res => {
+    axios.get('http://localhost:8081/games').then(res => {
       this.gameList = res.data;
     })
   }

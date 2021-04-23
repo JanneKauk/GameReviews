@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import GameList from "@/components/Lists/GameList.vue";
 import NotFound from "@/pages/NotFound.vue";
-import LoginSignup from "@/components/Layout/LoginSignup";
+import LoginSignup from "@/components/registration/LoginSignup.vue";
 
 
 

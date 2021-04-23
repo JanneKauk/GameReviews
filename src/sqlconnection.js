@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var mysql = require('mysql');
 
+const cors = require('cors');
+
 var con = mysql.createConnection({
     host: "mysql.metropolia.fi",
     user: "jannkauk",
@@ -9,6 +11,7 @@ var con = mysql.createConnection({
     database: "jannkauk"
 });
 
+app.use(cors());
 con.connect(function(err) {
     if (err) throw err;
     con.query("SELECT * FROM games", function (err) {
@@ -25,9 +28,9 @@ app.get('/games', function (req, res) {
     });
 });
 
-// var server = app.listen(8080, function () {
-//     var host = server.address().address
-//     var port = server.address().port
-//
-//     console.log("Example app listening at http://%s:%s", host, port)
-// })
+var server = app.listen(8081, function () {
+    var host = server.address().address
+    var port = server.address().port
+
+    console.log("Example app listening at http://%s:%s", host, port)
+})

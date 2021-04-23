@@ -21,7 +21,7 @@ con.connect(function(err) {
 });
 
 app.get('/games', function (req, res) {
-    con.query("SELECT * FROM games", function (err, result) {
+    con.query("SELECT * FROM games ORDER BY score DESC", function (err, result) {
         if (err) throw err;
         console.log(result);
         res.send(result);

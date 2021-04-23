@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between" v-for="user in gameList" v-bind:key="user.id">
+      <li class="list-group-item d-flex justify-content-between" v-for="game in gameList" v-bind:key="game.id">
         <div class="container">
-          <h3 style="text-align: left">Platforms: PC, PS4<br>Game Name<br>☆☆☆☆☆</h3>
+          <h3 style="text-align: left">Platforms: {{ game.platforms }}<br>{{ game.name }}<br>{{ game.score }}</h3>
         </div>
-        <img style="max-height: 100px" alt="" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fen%2F2%2F2b%2FBallistics_(video_game).jpg&f=1&nofb=1">
+        <img style="max-height: 100px" alt="" :src="'/img/'+game.image">
       </li>
     </ul>
   </div>
@@ -28,6 +28,11 @@ export default {
     axios.get('http://localhost:8081/games').then(res => {
       this.gameList = res.data;
     })
+  },
+  computed:{
+    convert(str){
+      return "../../../public/img/"+str+".jpg";
+    }
   }
 }
 </script>

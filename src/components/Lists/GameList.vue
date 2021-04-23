@@ -25,13 +25,15 @@ export default {
     };
   },
   created: function() {
-    axios.get('http://localhost:8081/games').then(res => {
+    axios.get('http://localhost:8081/games?sortby=graphics').then(res => {
       this.gameList = res.data;
     })
   },
-  computed:{
-    convert(str){
-      return "../../../public/img/"+str+".jpg";
+  methods:{
+    sortGames: function(str){
+      axios.get('http://localhost:8081/games?sortby='+str).then(res => {
+        this.gameList = res.data;
+      })
     }
   }
 }

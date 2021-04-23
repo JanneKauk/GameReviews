@@ -19,9 +19,12 @@ con.connect(function(err) {
         console.log("MySql connection established successfully!");
     });
 });
-
+var url = require('url');
 app.get('/games', function (req, res) {
-    con.query("SELECT * FROM games ORDER BY score DESC", function (err, result) {
+    let q = url.parse(req.url, true).query;
+    let str = q.sortby;
+    console.log(str);
+    con.query("SELECT name, platforms, image, "+str+" AS score FROM games ORDER BY score DESC", function (err, result) {
         if (err) throw err;
         console.log(result);
         res.send(result);

@@ -1,7 +1,8 @@
 <template>
   <header>
     <div>
-      <router-link to="/Login"><h1>{{ login }}</h1></router-link>
+      <button @click="$emit('open')">{{ login }}</button>
+      <!-- <router-link to="/Login"><h1>{{ login }}</h1></router-link> -->
     </div>
 
   </header>
@@ -13,8 +14,9 @@ export default {
     login: {
       type: String,
       required: true
-    }
+    },
   },
+  emits: ['open'],
   data() {
     return {
     };

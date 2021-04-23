@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import GameList from "@/components/Lists/GameList.vue";
 import NotFound from "@/pages/NotFound.vue";
-// import LoginSignup from "@/components/registration/LoginSignup.vue";
+// import GameDetails from './pages/GameDetails.vue';
 
 
 
@@ -9,9 +9,13 @@ import NotFound from "@/pages/NotFound.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/home', component: GameList},
-        // { path: '/login', component: LoginSignup},
-        { path: '/', redirect: '/home' },
+        { path: '/gameslist', component: GameList},
+        // { 
+        //     path: '/gameslist/:category',
+        //     component: GameDetails,
+        //     props: true,
+        // },
+        { path: '/', redirect: '/gameslist' },
         { path: '/:notFound(.*)', component: NotFound},
 
     ],

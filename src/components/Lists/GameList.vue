@@ -25,9 +25,8 @@ export default {
     };
   },
   created: function() {
-    axios.get('http://localhost:8081/games?sortby=graphics').then(res => {
-      this.gameList = res.data;
-    })
+    console.log("DEPR")
+    this.gameList = this.$store.getters.games
   },
   methods:{
     sortGames: function(str){
@@ -40,5 +39,7 @@ export default {
 </script>
 
 <style scoped>
-
+.list-group-item:hover {
+  background-color: #f5f5f5;
+}
 </style>

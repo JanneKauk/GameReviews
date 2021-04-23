@@ -2,8 +2,8 @@
   <div>
     <nav class="container">
       <div>
-        <router-link to="/home">Graphics</router-link>
-        <router-link to="/notFound"> Not Found link</router-link>
+        <router-link to="/home" v-on:click="storeString('graphics')">Graphics</router-link>
+        <router-link to="/notFound" v-on:click="storeString('score')"> Not Found link</router-link>
         <router-link to="/home">Graphics</router-link>
         <router-link to="/notFound"> Not Found link</router-link>
         <router-link to="/home">Graphics</router-link>
@@ -33,6 +33,9 @@ export default {
     };
   },
   methods: {
+    storeString(str){
+      this.$store.dispatch("sortedGames", str);
+    }
   }
 }
 </script>

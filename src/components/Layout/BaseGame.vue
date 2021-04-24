@@ -2,11 +2,11 @@
   <div>
     <nav class="container">
       <div>
-        <router-link to="/gameslist">Graphics</router-link>
-        <router-link to="/notFound"> Not Found link</router-link>
-        <router-link to="/gameslist">Graphics</router-link>
-        <router-link to="/notFound"> Not Found link</router-link>
-        <router-link to="/gameslist">Graphics</router-link>
+        <router-link to="/gameslist" v-on:click="storeString('graphics')">Graphics</router-link>
+        <router-link to="/gameslist" v-on:click="storeString('score')">Score</router-link>
+        <router-link to="/home">Not Found link</router-link>
+        <router-link to="/notFound">Not Found link</router-link>
+        <router-link to="/home">Not Found link</router-link>
         <!-- <label for="category"></label>
         <select id="category" name="category" v-model="category">
         <option value="Graphics">Graphics</option>
@@ -18,7 +18,6 @@
           <input id="searchbar" placeholder="search" />
         </label>
       </div>
-      <button @click="giveString">test</button>
     </nav>
   </div>
 
@@ -34,9 +33,8 @@ export default {
     };
   },
   methods: {
-    giveString() {
-      let test = 'story';
-      this.$store.dispatch('giveString', test);
+    storeString(str){
+      this.$store.dispatch("sortedGames", str);
     }
   }
 }

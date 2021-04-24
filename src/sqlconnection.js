@@ -23,7 +23,7 @@ var url = require('url');
 app.get('/games', function (req, res) {
     let q = url.parse(req.url, true).query;
     let str = q.sortby;
-    console.log(str);
+    console.log("category for sql query: "+str);
     con.query("SELECT name, platforms, image, "+str+" AS score FROM games ORDER BY score DESC", function (err, result) {
         if (err) throw err;
         console.log(result);

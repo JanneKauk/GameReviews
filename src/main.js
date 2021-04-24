@@ -12,7 +12,9 @@ import axios from 'axios';
 const store = createStore( {
     state(){
         return {
-            gameList: null,
+            gameList: axios.get('http://localhost:8081/games?sortby=score').then(res => {
+                return res.data;
+            }),
             querString: ''
         }
     },

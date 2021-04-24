@@ -9,7 +9,10 @@ import NotFound from "@/pages/NotFound.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/gameslist', component: GameList},
+        { path: '/gameslist/:category', 
+            component: GameList,
+            props: { showExtra: true},
+        },
         // { 
         //     path: '/gameslist/:category',
         //     component: GameDetails,

@@ -2,8 +2,8 @@
   <div>
     <nav class="container">
       <div>
-        <router-link to="/gameslist" v-on:click="storeString('graphics')">Graphics</router-link>
-        <router-link to="/gameslist" v-on:click="storeString('score')">Score</router-link>
+        <router-link to="/gameslist/graphics" v-on:click="storeString('graphics')">Graphics</router-link>
+        <router-link to="/gameslist/score" v-on:click="storeString('score')">Score</router-link>
         <router-link to="/home">Not Found link</router-link>
         <router-link to="/notFound">Not Found link</router-link>
         <router-link to="/home">Not Found link</router-link>

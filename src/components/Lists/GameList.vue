@@ -27,6 +27,7 @@ export default {
   },
   computed:{
     games(){
+      console.log(this.gameList);
       return this.gameList
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between" v-for="game in gameList" v-bind:key="game.id">
+      <li class="list-group-item d-flex justify-content-between" v-for="game in games()" v-bind:key="game.id">
         <div class="container">
           <h3 style="text-align: left">Platforms: {{ game.platforms }}<br>{{ game.name }}<br>{{ game.score }}</h3>
         </div>
@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   name: "GameList",
   components:{
@@ -25,14 +23,12 @@ export default {
     };
   },
   created: function() {
-    console.log("DEPR")
     this.gameList = this.$store.getters.games
+    console.log("DEPR")
   },
-  methods:{
-    sortGames: function(str){
-      axios.get('http://localhost:8081/games?sortby='+str).then(res => {
-        this.gameList = res.data;
-      })
+  computed:{
+    games(){
+      return this.gameList;
     }
   }
 }

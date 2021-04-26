@@ -7,11 +7,6 @@
         <router-link to="/home">Not Found link</router-link>
         <router-link to="/notFound">Not Found link</router-link>
         <router-link to="/home">Not Found link</router-link>
-        <!-- <label for="category"></label>
-        <select id="category" name="category" v-model="category">
-        <option value="Graphics">Graphics</option>
-        <option value="Gameplay">Gameplay</option>
-      </select> -->
       </div>
       <div>
         <label>
@@ -31,6 +26,9 @@ export default {
       category: 'Graphics',
       test: '✰✰✰✰✰'
     };
+  },
+  created: function() {
+    this.$store.dispatch("sortedGames", "score");
   },
   methods: {
     storeString(str){

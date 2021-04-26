@@ -24,8 +24,7 @@ export default {
   },
   data() {
     return {
-      gameList: null,
-      raiting: 3
+
     };
   },
   created: function() {
@@ -33,7 +32,6 @@ export default {
   },
   computed:{
     games(){
-      console.log(this.gameList);
       return this.$store.getters.games
     }
   }

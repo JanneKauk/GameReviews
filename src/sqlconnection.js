@@ -27,6 +27,7 @@ app.get('/games', function (req, res) {
     con.query("SELECT name, platforms, image, "+str+" AS score FROM games ORDER BY score DESC", function (err, result) {
         if (err) throw err;
         console.log(result);
+        console.log("Query successful");
         res.send(result);
     });
 });

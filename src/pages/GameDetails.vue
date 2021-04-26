@@ -2,11 +2,6 @@
     <section>
         <base-card>
             <h2>Game Details</h2>
-            <ul>
-                <li v-for="game in singleGame" :key="game.id" :name="game">
-
-                </li>
-            </ul>
             <div>
                 <h3>{{ singleGame }}</h3>
             </div>

@@ -6,16 +6,10 @@
     <login-signup @close="hideDialog" :open="dialogIsVisible">
       <button @click="hideDialog">Close dialog</button>
     </login-signup>
-
-<!--    <GameList/>-->
-<!--    <img alt="Vue logo" src="./assets/logo.png">-->
-<!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
 
 <script>
-// import GameList from './components/Lists/GameList.vue'
-// import HelloWorld from './components/HelloWorld.vue'
 import BaseGame from './components/Layout/BaseGame.vue'
 
 export default {

@@ -24,7 +24,7 @@
 export default {
   data() {
     return {
-      category: 'Graphics',
+      category: 'score',
       test: '✰✰✰✰✰'
     };
   },
@@ -33,12 +33,13 @@ export default {
   },
   methods: {
     storeString(str){
+      this.category = str;
       this.$store.dispatch("sortedGames", str);
     },
     // game(){
     //   this.$store.commit('game', "The Last of Us");
     // }
-  }
+  },
 }
 </script>
 
@@ -85,10 +86,13 @@ a {
   display: inline-block;
 }
 
-a:hover,
-a:active {
+a:hover {
   background-color: #f5f5f5;
   border-color: black;
+}
 
+.is-active {
+  background-color: #f5f5f5;
+  border-color: black;
 }
 </style>

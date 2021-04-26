@@ -14,6 +14,15 @@
         </router-link>
         <img style="max-height: 100px" alt="" :src="'/img/'+game.image">
       </li>
+      <nav aria-label="Page navigation example" class="paginationholder">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
     </ul>
   </div>
 </template>
@@ -83,6 +92,12 @@ body {
 * {
   position: relative;
   box-sizing: border-box;
+}
+.paginationholder{
+  margin: auto;
+}
+.page-link{
+  color:#394fffde;
 }
 
 </style>

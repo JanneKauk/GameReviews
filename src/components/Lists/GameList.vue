@@ -2,7 +2,7 @@
   <div class="container">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between" v-for="game in games" v-bind:key="game.id">
-        <router-link :to="'/gamedetails/' + game.name" @click="storeName(game.name)">
+        <router-link style="text-decoration: none; color: #323232" :to="'/gamedetails/' + game.name" @click="storeName(game.name)">
           <div class="container">
             <h3 style="text-align: left">
               Platforms: {{ game.platforms }}<br>

@@ -87,7 +87,7 @@ a {
 
 a:hover,
 a:active {
-  background-color: blue;
+  background-color: #f5f5f5;
   border-color: black;
 
 }

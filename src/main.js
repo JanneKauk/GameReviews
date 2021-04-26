@@ -13,7 +13,8 @@ const store = createStore( {
     state(){
         return {
             gameList: null,
-            querString: ''
+            querString: '',
+            game: null
         }
     },
     mutations: {
@@ -26,6 +27,14 @@ const store = createStore( {
         giveString(state, payload) {
             state.querString = payload;
         },
+        querySingleGame(state, payload) {
+            console.log(state);
+            console.log(payload);
+            axios.get('http://localhost:8081/gamedetails?test=' + payload).then(res => {
+                console.log(res);
+                state.game = res.data;
+            })
+        }
     },
     actions: {
         sortedGames (context, payload) {
@@ -34,6 +43,9 @@ const store = createStore( {
         giveString(context, payload) {
             context.commit('giveString', payload);
         },
+        querySingleGameAction(context, payload) {
+            context.commit('querySingleGame', payload);
+        }
     },
     getters: {
         games (state) {
@@ -41,6 +53,9 @@ const store = createStore( {
         },
         getString(state){
             return state.querString;
+        },
+        getSingleGame(state) {
+            return state.game;
         }
     }
 });

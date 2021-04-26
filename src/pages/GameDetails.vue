@@ -2,9 +2,14 @@
     <section>
         <base-card>
             <h2>Game Details</h2>
-            <!-- <div>
-                {{ selectedGame.id }}
-            </div> -->
+            <ul>
+                <li v-for="game in singleGame" :key="game.id" :name="game">
+
+                </li>
+            </ul>
+            <div>
+                <h3>{{ singleGame }}</h3>
+            </div>
         </base-card>
         <add-review @close="hideDialog" :open="dialogIsVisible">
                 <button @click="hideDialog">Close dialog</button>
@@ -24,7 +29,6 @@ export default {
     props: ['id'],
     data() {       
         return {
-            selectedGame: null,
             dialogIsVisible: false,
         };
     },
@@ -38,10 +42,9 @@ export default {
   },
     computed: {
         //computed property for all game details that get put in template
-    },
-    created() {
-        //Get games to this.selectedGame from vuex getter
-        // this.selectedGame = this.$store.getters['games'].find((game) => game.id === this.id);
+        singleGame() {
+           return this.$store.getters.getSingleGame;
+        }
     }
 }
 </script>

@@ -33,9 +33,12 @@ app.get('/games', function (req, res) {
 });
 
 app.get('/gamedetails', function (req, res) {
-    let str = url.parse(req.url, true).query;
+    let q = url.parse(req.url, true).query;
+    let str = q.test;
     console.log(str);
-    con.query("Select * from games where name like '" + str + "'", function (err, result) {
+    console.log("test");
+
+    con.query("SELECT * FROM games WHERE name like '" + str + "'", function (err, result) {
         if (err) throw err;
         console.log(result);
         res.send(result);

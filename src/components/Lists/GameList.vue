@@ -36,10 +36,6 @@ export default {
     },
   },
   methods:{
-    calc(score){
-      this.result = score / 5 * 100;
-      return this.result;
-    },
     storeName(str) {
       this.$store.dispatch("querySingleGameAction", str)
     }

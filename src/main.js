@@ -25,7 +25,7 @@ const store = createStore( {
         },
         giveString(state, payload) {
             state.querString = payload;
-        }
+        },
     },
     actions: {
         sortedGames (context, payload) {
@@ -33,7 +33,7 @@ const store = createStore( {
         },
         giveString(context, payload) {
             context.commit('giveString', payload);
-        }
+        },
     },
     getters: {
         games (state) {

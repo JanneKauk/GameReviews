@@ -32,6 +32,16 @@ app.get('/games', function (req, res) {
     });
 });
 
+app.get('/gamedetails', function (req, res) {
+    let str = url.parse(req.url, true).query;
+    console.log(str);
+    con.query("Select * from games where name like '" + str + "'", function (err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+});
+
 var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port

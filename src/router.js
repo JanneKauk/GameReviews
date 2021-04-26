@@ -14,7 +14,7 @@ const router = createRouter({
             props: { showExtra: true},
         },
         { 
-            path: '/gameslist/gamedetails/:id',
+            path: '/gamedetails/:id',
             component: GameDetails,
             props: true,
         },

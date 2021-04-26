@@ -6,7 +6,7 @@
           <h3 style="text-align: left">
             Platforms: {{ game.platforms }}<br>
             {{ game.name }}<br>
-            <div class="Stars" :style="`--rating: ${game.score}`" aria-label="Rating of this product is 2.3 out of 5.">
+            <div class="Stars" :style="`--rating: ${game.score}`">{{game.score}}
             </div>
           </h3>
         </div>
@@ -53,14 +53,14 @@ export default {
 }
 
 .Stars {
-  --star-size: 40px;
-  --star-color: #fff;
+  --star-size: 30px;
+  --star-color: #d7d7d7;
   --star-background: #fc0;
   --percent: calc(var(--rating) / 5 * 100%);
   --user-gradient: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
   display: inline-block;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   font-size: var(--star-size);
-  font-family: Times;
   line-height: 1;
 }
 .Stars::before {

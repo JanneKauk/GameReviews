@@ -2,14 +2,16 @@
   <div class="container">
     <ul class="list-group">
       <li class="list-group-item d-flex justify-content-between" v-for="game in games" v-bind:key="game.id">
-        <div class="container">
-          <h3 style="text-align: left">
-            Platforms: {{ game.platforms }}<br>
-            {{ game.name }}<br>
-            <div class="Stars" :style="`--rating: ${game.score}`">{{game.score}}
-            </div>
-          </h3>
-        </div>
+        <router-link :to="'/gamedetails/' + game.name" @click="storeName(game.name)">
+          <div class="container">
+            <h3 style="text-align: left">
+              Platforms: {{ game.platforms }}<br>
+              {{ game.name }}<br>
+              <div class="Stars" :style="`--rating: ${game.score}`">{{game.score}}
+              </div>
+            </h3>
+          </div>
+        </router-link>
         <img style="max-height: 100px" alt="" :src="'/img/'+game.image">
       </li>
     </ul>
@@ -37,6 +39,9 @@ export default {
     calc(score){
       this.result = score / 5 * 100;
       return this.result;
+    },
+    storeName(str) {
+      this.$store.dispatch("querySingleGameAction", str)
     }
   }
 }

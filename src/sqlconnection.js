@@ -38,7 +38,7 @@ app.get('/gamedetails', function (req, res) {
     console.log(str);
     console.log("test");
 
-    con.query("SELECT * FROM games WHERE name like '" + str + "'", function (err, result) {
+    con.query('SELECT * FROM games WHERE name like "' + str + '"', function (err, result) {
         if (err) throw err;
         console.log(result);
         res.send(result);

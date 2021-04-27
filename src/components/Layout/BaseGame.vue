@@ -36,9 +36,6 @@ export default {
       this.category = str;
       this.$store.dispatch("sortedGames", str);
     },
-    // game(){
-    //   this.$store.commit('game', "The Last of Us");
-    // }
   },
 }
 </script>

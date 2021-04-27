@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div v-if="open" class="backdrop" @click="$emit('close')"></div>
     <transition name="modal">
         <dialog open v-if="open">
@@ -15,6 +16,7 @@
             </form>
         </dialog>
     </transition>
+  </div>
 </template>
 
 <script>

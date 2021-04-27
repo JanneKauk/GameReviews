@@ -1,57 +1,59 @@
 <template>
-    <div v-if="open" class="backdrop" @click="$emit('close')"></div>
-    <transition name="modal">
-        <dialog open v-if="open">
-            <form @submit.prevent="submitForm">
-                <div>
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                </div>
-                <div>
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                    <input type="checkbox">
-                </div>
-                <div>
-                    <label for="title">title</label>
-                    <input id="title" name="title" v.model.trim="title" />
-                </div>
-                <div>
-                    <label for="review">review</label>
-                    <textarea id="review" name="review" rows="5" v.model.trim="review">
+    <div>
+        <div v-if="open" class="backdrop" @click="$emit('close')"></div>
+        <transition name="modal">
+            <dialog open v-if="open">
+                <form @submit.prevent="submitForm">
+                    <div>
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                    </div>
+                    <div>
+                        <label for="title">title</label>
+                        <input id="title" name="title" v.model.trim="title" />
+                    </div>
+                    <div>
+                        <label for="review">review</label>
+                        <textarea id="review" name="review" rows="5" v.model.trim="review">
 
-                    </textarea>
-                </div>
-                <slot></slot>
-            </form>
-        </dialog>
-    </transition>
+                        </textarea>
+                    </div>
+                    <slot></slot>
+                </form>
+            </dialog>
+        </transition>
+    </div>
 </template>
 
 <script>

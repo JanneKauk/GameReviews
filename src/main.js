@@ -14,31 +14,35 @@ const store = createStore( {
         return {
             gameList: null,
             querString: '',
-            game: null
+            game: null,
+            gameListReady: false
         }
     },
     mutations: {
         sortGames (state, payload) {
-            console.log(payload);
-            axios.get('http://localhost:8081/games?sortby=' + payload).then(res => {
-                state.gameList = res.data;
-            })
+            state.gameList = payload;
+            console.log(this.getters.games);
         },
         giveString(state, payload) {
             state.querString = payload;
         },
         querySingleGame(state, payload) {
-            console.log(state);
-            console.log(payload);
+            //console.log(state);
+            //console.log(payload);
             axios.get('http://localhost:8081/gamedetails?test=' + payload).then(res => {
-                console.log(res);
+                //console.log(res.data);
                 state.game = res.data;
             })
+        },
+        gameListReady(state, payload){
+            state.gameListReady = payload;
         }
     },
     actions: {
-        sortedGames (context, payload) {
-            context.commit('sortGames', payload);
+        async sortedGames (context, payload) {
+            await axios.get('http://localhost:8081/games?sortby=' + payload).then(res => {
+                context.commit('sortGames', res.data);
+            })
         },
         giveString(context, payload) {
             context.commit('giveString', payload);
@@ -56,6 +60,9 @@ const store = createStore( {
         },
         getSingleGame(state) {
             return state.game;
+        },
+        ready (state){
+            return state.gameListReady;
         }
     }
 });

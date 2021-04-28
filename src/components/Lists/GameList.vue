@@ -1,107 +1,89 @@
-<template>
-  <div class="container">
-    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between" v-for="(game, index) in games" v-bind:key="game.id">
-        <router-link style="text-decoration: none; color: #323232" :to="'/gamedetails/' + game.name" @click="storeName(game.name)">
-          <div class="container">
-            <h3 style="text-align: left">
-              {{ index+1+" " }}{{ game.name }}<br>
-              Platforms: {{ game.platforms }}<br>
-              <div class="Stars" :style="`--rating: ${game.score}`">{{game.score}}
-              </div>
-            </h3>
-          </div>
-        </router-link>
-        <img style="max-height: 100px" alt="" :src="'/img/'+game.image">
-      </li>
-      <nav aria-label="Page navigation example" class="paginationholder">
-        <ul class="pagination" id="pages">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-      </nav>
-    </ul>
+<template >
+  <div v-if="checkIfReady">
+    <div class="container">
+      <ul class="list-group">
+        <GameListElem v-for="index in listLength" :key="index" :l-index="calcIndex(index)"></GameListElem>
+        <nav aria-label="Page navigation example" class="paginationholder">
+          <ul class="pagination" id="pages">
+            <li class="page-item"><a class="page-link" v-on:click="updatePage(-1)">Previous</a></li>
+            <li class="page-item"><a class="page-link" v-on:click="updatePage(+1)">Next</a></li>
+          </ul>
+        </nav>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-
+import GameListElem from '@/components/Lists/GameListElem';
 export default {
   name: "GameList",
   components:{
-
+    GameListElem,
   },
   data() {
     return{
       page: 1,
-
+      maxPages: 1,
+      listLength: 5,
+      finalListLength: 0,
+      initialized: false
     }
   },
   computed:{
-    games(){
-      return this.$store.getters.games
-    },
-    pagenum(){
+    pageNum(){
       return this.page
+    },
+    getIndex(){
+      return this.index
+    },
+    checkIfReady(){
+      let r = this.$store.getters.ready;
+      console.log("Is it ready?: "+r);
+      if(r && !this.initialized) this.init();
+      return r;
+    },
+    getList(){
+      return this.$store.getters.games
     }
   },
   methods:{
-    storeName(str) {
-      this.$store.dispatch("querySingleGameAction", str)
+    init(){
+      console.log(this.$store.getters.games)
+      let i = this.getList.length;
+      this.finalListLength = i % 5
+      if(i % 5 != 0){
+        this.maxPages = Math.floor(i / 5)+1
+      }
+      else{
+        this.maxPages = Math.floor(i / 5)
+      }
+      console.log("page num: "+this.pageNum+", max pages: "+this.maxPages+", last page list length: "+this.finalListLength)
+      this.initialized = true;
     },
-    updateListPage(){
+    updatePage(mod){
+      if(this.getList!=null){
+        this.page = this.pageNum + 1*mod;
+        if(this.pageNum < 1) this.page = 1;
+        if(this.pageNum > this.maxPages) this.page = this.maxPages;
 
+        if(this.pageNum == this.maxPages){
+          this.listLength = this.finalListLength
+        }else this.listLength = 5
+        console.log("Page num: "+this.pageNum);
+      }
+    },
+    calcIndex(index){
+      let trueIndex = ((this.pageNum-1)*5)+index-1;
+      console.log("True index: "+trueIndex)//range goes 1 over the max
+      return trueIndex;
     }
   }
 }
 </script>
 
 <style scoped>
-.list-group-item:hover{
-  background-color: #f5f5f5;
-}
-
-
-:root {
-
-}
-
-.Stars {
-  --star-size: 30px;
-  --star-color: #d7d7d7;
-  --star-background: #fc0;
-  --percent: calc(var(--rating) / 5 * 100%);
-  --user-gradient: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-  display: inline-block;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: var(--star-size);
-  line-height: 1;
-}
-.Stars::before {
-    content: "★★★★★";
-    letter-spacing: 3px;
-    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-body {
-  background: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-* {
-  position: relative;
-  box-sizing: border-box;
-}
 .paginationholder{
   margin: auto;
 }
-.page-link{
-  color:#394fffde;
-}
-
 </style>

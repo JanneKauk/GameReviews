@@ -29,13 +29,18 @@ export default {
     };
   },
   created: function() {
-    this.$store.dispatch("sortedGames", "score");
+    this.load();
   },
   methods: {
     storeString(str){
       this.category = str;
       this.$store.dispatch("sortedGames", str);
     },
+    async load(){
+      await this.$store.dispatch("sortedGames", "score");
+      //console.log("Is it ready?(load): "+this.$store.getters.games);
+      this.$store.commit("gameListReady", true);
+    }
   },
 }
 </script>

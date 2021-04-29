@@ -8,7 +8,7 @@
       </transition>
     </router-view>
     <login-signup @close="hideDialog" :open="dialogIsVisible">
-      <button @click="hideDialog">Close dialog</button>
+      <!-- <button @click="hideDialog">Close dialog</button> -->
     </login-signup>
   </div>
 </template>
@@ -55,32 +55,32 @@ export default {
 }
 .route-enter-from {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateX(-50px);
 }
 
 .route-leave-to {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateX(50px);
 }
 
 .route-enter-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.4s ease-out;
 }
 
 .route-leave-active {
-  transition: all 0.3s ease-in;
+  transition: all 0.4s ease-in;
 }
 
 .route-enter-to,
 .route-leave-from {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 @keyframes modal {
   from {
     opacity: 0;
-    transform: translateY(-50px) scale(0.9);
+    transform: translateY(-30px) scale(0.9);
   }
   to {
     opacity: 1;

@@ -121,6 +121,8 @@ export default {
     justify-content: space-between;
 }
 
+
+
 text{
     flex: 2;
 }
@@ -169,6 +171,13 @@ button {
     }
     .text {
         font-size: 1rem;
+    }
+    .review {
+    align-self: center;
+    }
+
+    button {
+        margin: 5rem 2rem 3rem 0;
     }
     
 }

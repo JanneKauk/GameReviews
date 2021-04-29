@@ -25,11 +25,11 @@ const store = createStore( {
     mutations: {
         sortGames (state, payload) {
             state.gameList = payload;
-            console.log(this.getters.games);
+            //console.log(this.getters.games);
         },
         sortReviews (state, payload){
             state.reviewList = payload;
-            console.log(this.getters.reviews);
+            //console.log(this.getters.reviews);
         },
         giveString(state, payload) {
             state.querString = payload;
@@ -71,8 +71,8 @@ const store = createStore( {
             context.commit('giveString', payload);
         },
         async querySingleGameAction(context, payload) {
-            axios.get('http://localhost:8081/gamedetails?test=' + payload).then(res => {
-                //console.log(res.data);
+            await axios.get('http://localhost:8081/gamedetails?test=' + payload).then(res => {
+                console.log("single query: "+res.data);
                 context.commit('querySingleGame', res.data);
             })
             

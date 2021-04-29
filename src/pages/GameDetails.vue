@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section v-if="readystate">
         <base-card>
             <div class="textandbutton">
                 <div class="text">
@@ -59,6 +59,7 @@ export default {
         return {
             dialogIsVisible: false,
             game: null,
+            readystate: false
         };
     },
     methods: {
@@ -69,8 +70,13 @@ export default {
       this.dialogIsVisible = false;
     },
     async load(){
+      await this.$store.dispatch("querySingleGameAction", this.id)
+      console.log("load"+this.$store.getters.getSingleGame)
+      this.game = this.$store.getters.getSingleGame;
       await this.$store.dispatch("sortedReviews", this.gameId);
+      //await this.$store.dispatch
       console.log("Is it ready?(load): "+this.$store.getters.reviews);
+      this.readystate = true;
       this.$store.commit("reviewListReady", true);
     },
   },
@@ -111,7 +117,7 @@ export default {
         }
     },
     created() {
-        this.game = this.$store.getters.getSingleGame;
+        this.readystate = false;
         this.load();
     }
 }

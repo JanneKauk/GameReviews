@@ -17,14 +17,19 @@ const store = createStore( {
             querString: '',
             game: null,
             gameListReady: false,
+            reviewListReady: false,
             user: null,
-
+            reviewList: null
         }
     },
     mutations: {
         sortGames (state, payload) {
             state.gameList = payload;
             console.log(this.getters.games);
+        },
+        sortReviews (state, payload){
+            state.reviewList = payload;
+            console.log(this.getters.reviews);
         },
         giveString(state, payload) {
             state.querString = payload;
@@ -43,6 +48,9 @@ const store = createStore( {
         gameListReady(state, payload){
             state.gameListReady = payload;
         },
+        reviewListReady(state, payload){
+            state.reviewListReady = payload;
+        },
         authenticatedUser(state, payload) {
             state.user = payload;
         }
@@ -52,6 +60,11 @@ const store = createStore( {
         async sortedGames (context, payload) {
             await axios.get('http://localhost:8081/games?sortby=' + payload).then(res => {
                 context.commit('sortGames', res.data);
+            })
+        },
+        async sortedReviews (context, payload){
+            await axios.get('http://localhost:8081/gamereviews?sortby=' + payload).then(res => {
+                context.commit('sortReviews', res.data);
             })
         },
         giveString(context, payload) {
@@ -68,7 +81,6 @@ const store = createStore( {
             console.log(payload.email);
             console.log(payload.password);
             console.log("here");
-            
 
             await instance.post('/login', {email: payload.email, password: payload.password}).then(res => {
 
@@ -97,14 +109,20 @@ const store = createStore( {
         games (state) {
             return state.gameList;
         },
+        reviews(state){
+            return state.reviewList;
+        },
         getString(state){
             return state.querString;
         },
         getSingleGame(state) {
             return state.game;
         },
-        ready (state){
+        gamesReady (state){
             return state.gameListReady;
+        },
+        reviewsReady(state){
+            return state.reviewListReady;
         },
         getUser(state) {
             return state.user;

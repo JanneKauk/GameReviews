@@ -34,9 +34,6 @@
                     <label>Playability: 
                         <div class="Stars" :style="`--rating: ${gamePlayability}`">{{" "+gamePlayability}}</div>
                     </label>
-                    
-                    
-                    
                 </div>
             </div>
             <add-review @close="hideDialog" :open="dialogIsVisible">
@@ -70,10 +67,18 @@ export default {
     },
     hideDialog() {
       this.dialogIsVisible = false;
-    }
+    },
+    async load(){
+      await this.$store.dispatch("sortedReviews", this.gameId);
+      console.log("Is it ready?(load): "+this.$store.getters.reviews);
+      this.$store.commit("reviewListReady", true);
+    },
   },
     computed: {
         //computed property for all game details that get put in template
+        gameId(){
+          return this.game[0].id;
+        },
         gameName() {
            return this.game[0].name;
         },
@@ -107,6 +112,7 @@ export default {
     },
     created() {
         this.game = this.$store.getters.getSingleGame;
+        this.load();
     }
 }
 </script>

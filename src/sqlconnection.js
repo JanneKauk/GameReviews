@@ -115,6 +115,16 @@ app.post('/login', function(req, res) {
     )
 })
 
+app.post('/search', function(req, res) {
+    let q = url.parse(req.url, true).query;
+    let str = q.search.toLowerCase();
+    console.log("Game name for sql query: " + str);
+
+    con.query('Select * from games where name = ?', str, function(err, result) {
+        if(err) throw err;
+        res.send(result);
+    })
+})
 
 var server = app.listen(8081, function () {
     var host = server.address().address

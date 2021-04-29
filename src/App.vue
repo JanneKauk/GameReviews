@@ -2,9 +2,9 @@
   <div id="app">
     <the-header :login="loginSignUp" @open="showDialog"></the-header>
     <base-game></base-game>
-    <router-view v-slot="slotProps">
+    <router-view v-slot="slotProps"> 
       <transition name="route" mode="out-in">
-        <component :is="slotProps.Component"></component>
+        <component :is="slotProps.Component" />
       </transition>
     </router-view>
     <login-signup @close="hideDialog" :open="dialogIsVisible">
@@ -15,7 +15,7 @@
 
 <script>
 import BaseGame from './components/Layout/BaseGame.vue'
-
+//:key="$route"
 export default {
   name: 'App',
   components: {

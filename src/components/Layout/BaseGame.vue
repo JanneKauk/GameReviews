@@ -11,7 +11,7 @@
       </div>
       <div>
         <label>
-          <input id="searchbar" placeholder="search" />
+          <input id="searchbar" placeholder="search" v-model="searchValue" @keypress.enter="searchGames"/>
         </label>
       </div>
     </nav>
@@ -25,7 +25,8 @@ export default {
   data() {
     return {
       category: 'score',
-      test: '✰✰✰✰✰'
+      test: '✰✰✰✰✰',
+      searchValue: ''
     };
   },
   created: function() {
@@ -40,6 +41,14 @@ export default {
       await this.$store.dispatch("sortedGames", "score");
       //console.log("Is it ready?(load): "+this.$store.getters.games);
       this.$store.commit("gameListReady", true);
+    },
+    async searchGames() {
+      // await this.$store.dispatch("searchAction", this.searchValue);
+      //  :key="$route"
+      // this.$router.push({ path: '/search/' + this.searchValue});
+      this.$router.push({ name: 'search', params: { search: this.searchValue}});
+      this.$store.commit('searchListReady', true);
+      
     }
   },
 }

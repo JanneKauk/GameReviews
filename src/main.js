@@ -19,7 +19,9 @@ const store = createStore( {
             gameListReady: false,
             reviewListReady: false,
             user: null,
-            reviewList: null
+            reviewList: null,
+            searchResult: null,
+            searchListReady: false
         }
     },
     mutations: {
@@ -53,6 +55,12 @@ const store = createStore( {
         },
         authenticatedUser(state, payload) {
             state.user = payload;
+        },
+        searchMutation(state, payload) {
+            state.searchResult = payload;
+        },
+        searchListReady(state, payload) {
+            state.searchListReady = payload;
         }
 
     },
@@ -103,6 +111,17 @@ const store = createStore( {
                 console.log(error.res);
             }
             )
+        },
+        async searchAction(context, payload) {
+            console.log("searchAction" + " " + payload);
+            await instance.post('/search?search=' + payload).then(res => {
+                console.log(res.data);
+                context.commit('searchMutation', res.data)
+            }).catch((error) => {
+                console.log("error in action");
+                console.log(error.res);
+            }
+            )
         }
     },
     getters: {
@@ -126,6 +145,12 @@ const store = createStore( {
         },
         getUser(state) {
             return state.user;
+        },
+        getSearchResult(state) {
+            return state.searchResult;
+        },
+        getSearchReady(state) {
+            return state.searchListReady;
         }
     }
 });

@@ -38,7 +38,7 @@ export default {
       return this.index
     },
     checkIfReady(){
-      let r = this.$store.getters.ready;
+      let r = this.$store.getters.gamesReady;
       console.log("Is it ready?: "+r);
       if(r && !this.initialized) this.init();
       return r;

@@ -25,6 +25,19 @@ export default {
 </script>
 
 <style scoped>
+button {
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  padding: 0;
+  margin: 2rem;
+  cursor: pointer;
+
+  @media screen and (-ms-high-contrast: active) {
+    border: 2px solid currentcolor;
+  }
+}
+
 header {
   width: 100%;
   height: 7rem;

@@ -48,18 +48,29 @@ app.get('/gamedetails', function (req, res) {
         res.send(result);
     });
 });
-
+con.query('Select * from users', function (err, result) {
+    console.log(result);
+});
 app.post('/register', function (req, res) {
-    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-        const email = req.body.email;
-        const username = req.body.username;
-        const password = hash;
-
-        con.query('INSERT INTO users (username, email, password) VALUES(?, ?, ?)', [username, email, password], function (err, result) {
-            if (err) throw err;
-            console.log(result);
-            res.send(result);
-        })
+    const email = req.body.email;
+    const username = req.body.username;
+    console.log(email);
+    console.log(username);
+    con.query('SELECT * FROM users WHERE email = ?', email, function (err, existresult) {
+        if(err) throw err;
+        console.log(existresult);
+        if(existresult.length <= 0) {
+        console.log(req.body.password);
+        bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+            const password = hash;
+            con.query('INSERT INTO users (username, email, password) VALUES(?, ?, ?)', [username, email, password], function (err, result) {
+                if (err) throw err;
+                console.log(result);
+                res.send(result);
+            })
+        });
+        }
+        console.log("Käyttäjä löytyy jo");
     });
 
 });
@@ -84,7 +95,7 @@ app.post('/login', function(req, res) {
                 if(compResult === true) {
 
                     console.log(compResult);
-                    res.send(compResult);
+                    res.send(JSON.stringify({success: compResult, user: result[0].username}));
                 }
             })
         } else {

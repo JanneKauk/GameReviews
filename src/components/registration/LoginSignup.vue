@@ -3,14 +3,17 @@
     <div v-if="open" class="mask" @click="$emit('close')"></div>
     <transition name="modal">
         <dialog open v-if="open">
-            <button @click="loginOrSignup">{{ buttonText }}</button>
-            <div v-if="isLogin">
+            <div v-if="!loggedIn">
+              <button class="mode-button" @click="loginOrSignup">Login/signup</button>
+              <h3 class="login-header">{{headerText}}</h3>
+            </div>
+            <div v-if="isLogin && !loggedIn">
               <form @submit.prevent="login">
-                  <div>
+                  <div class="form-div">
                       <label for="email">Email</label>
                       <input type="email" name="email" id="email" v-model.trim="email" />
                   </div>
-                  <div>
+                  <div class="form-div">
                       <label for="password">Password</label>
                       <input type="password" name="password" id="password" v-model.trim="password" />
                   </div>
@@ -18,22 +21,25 @@
                   <slot></slot>
               </form>
               </div>
-            <div v-if="!isLogin">
+            <div v-if="!isLogin && !loggedIn">
               <form @submit.prevent="signup">
-                  <div>
+                  <div class="form-div">
                       <label for="email">Email</label>
                       <input type="email" name="email" id="email" v-model.trim="email" />
                   </div>
-                  <div>
+                  <div class="form-div">
                       <label for="username">Username</label>
                       <input type="text" name="username" id="username" v-model.trim="username" />
                   </div>
-                  <div>
+                  <div class="form-div">
                       <label for="password">Password</label>
                       <input type="password" name="password" id="password" v-model.trim="password" />
                   </div>
                   <button type="submit">Signup</button>
               </form>
+            </div>
+            <div v-if="loggedIn"> 
+              <p>You are logged in as: {{ user }}</p>
             </div>
         </dialog>
     </transition>
@@ -50,27 +56,32 @@ export default {
         username: '',
         password: '',
         validForm: true,
-        isLogin: true
+        isLogin: true,
+        isLoggedIn: false,
+        user: 'test'
       };
     },
     computed: {
-      buttonText() {
+      headerText() {
         if(this.isLogin) {
-          return 'Signup';
-        } else {
           return 'Login';
+        } else {
+          return 'Signup';
         }
+      },
+      loggedIn() {
+        return this.isLoggedIn;
       }
     },
     methods: {
       async login() {
-        // this.validForm = true;
-        // if(this.email === '' || !this.email.includes('@') || this.password.length < 3) {
-        //   this.validForm = false;
-        //   return;
-        // }
-        // console.log(this.email);
-        // console.log(this.password);
+        this.validForm = true;
+        if(this.email === '' || !this.email.includes('@') || this.password.length < 5) {
+          this.validForm = false;
+          return;
+        }
+        console.log(this.email);
+        console.log(this.password);
 
         try {
           await this.$store.dispatch('loginUser', {
@@ -82,6 +93,9 @@ export default {
           }
           console.log("toimii");
           console.log(this.$store.getters.getUser)
+          const tempUser = this.$store.getters.getUser;
+          this.isLoggedIn = tempUser.success;
+          this.user = tempUser.user;
         },
         async signup() {
           try {
@@ -109,6 +123,56 @@ export default {
 </script>
 
 <style scoped>
+
+.login-header {
+  margin: 0.5rem 0 2rem 0;
+}
+
+button {
+  border: 2px solid #DE004A;
+  background-color: #DE004A;
+  color: white;
+  border-radius: 15px;
+  font-family: inherit;
+  /* padding: 0; */
+  margin: 2rem 0 1rem 0;
+  cursor: pointer;
+  display: inline-block;
+
+  @media screen and (-ms-high-contrast: active) {
+    border: 2px solid currentcolor;
+  }
+}
+
+.mode-button {
+  border-radius: 5px;
+}
+
+dialog {
+  box-sizing: border-box;
+}
+
+label {
+  margin: 1rem 0 1rem 0;
+}
+
+input {
+  display: block;
+  width: 100%;
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+}
+
+.form-div {
+  margin: auto;
+}
+
+form {
+  max-width: 11rem;
+  margin: auto;
+  box-sizing: border-box;
+}
 
 .mask {
   position: fixed;

@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 
 #app {
@@ -76,7 +76,9 @@ export default {
   opacity: 1;
   transform: translateX(0);
 }
-
+body{
+  padding-bottom: 2rem;
+}
 @keyframes modal {
   from {
     opacity: 0;

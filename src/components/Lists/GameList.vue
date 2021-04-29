@@ -86,4 +86,9 @@ export default {
 .paginationholder{
   margin: auto;
 }
+.page-item{
+  color: #DE004A;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 </style>

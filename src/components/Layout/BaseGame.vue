@@ -88,8 +88,8 @@ button {
 a {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
-  background: transparent;
-  color: black;
+  background-color: #FF004A;
+  color: #fff;
   border: 0.5px solid rgb(228, 225, 225);
   cursor: pointer;
   /* border-radius: 30px; */
@@ -98,12 +98,13 @@ a {
 }
 
 a:hover {
-  background-color: #f5f5f5;
+  background-color: #B0004A;
   border-color: black;
 }
 
 .is-active {
-  background-color: #f5f5f5;
+  background-color: #B0004A;
   border-color: black;
+  border-width: 1.5px;
 }
 </style>

@@ -90,4 +90,10 @@ ul {
 .paginationholder{
   margin: auto;
 }
+.page-item{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #DE004A;
+}
+
 </style>

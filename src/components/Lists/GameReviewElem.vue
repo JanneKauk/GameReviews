@@ -1,13 +1,17 @@
 <template>
  <base-card>
-   <ul>
+   <ul style="width: 95%">
      <h2>{{reviews[getIndex].username}}</h2>
-     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].graphics}`">{{" "+reviews[getIndex].graphics}}</span></li>
-     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].story}`">{{" "+reviews[getIndex].story}}</span></li>
-     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].characters}`">{{" "+reviews[getIndex].characters}}</span></li>
-     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].content}`">{{" "+reviews[getIndex].content}}</span></li>
-     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].playability}`">{{" "+reviews[getIndex].playability}}</span></li>
-     <textarea v-text="reviews[getIndex].reviewtext" readonly></textarea>
+     <li><span class="Categories">Story:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].story}`">{{" "+reviews[getIndex].story}}</span></li>
+     <li><span class="Categories">Graphics:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].graphics}`">{{" "+reviews[getIndex].graphics}}</span></li>
+     <li><span class="Categories">Content:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].content}`">{{" "+reviews[getIndex].content}}</span></li>
+     <li><span class="Categories">Characters:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].characters}`">{{" "+reviews[getIndex].characters}}</span></li>
+     <li><span class="Categories">Playability:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].playability}`">{{" "+reviews[getIndex].playability}}</span></li>
+     <br>
+     <div class="form-group shadow-textarea">
+       <label for="exampleFormControlTextarea6">User Review</label>
+       <textarea readonly class="form-control z-depth-1" v-text="reviews[getIndex].reviewtext" id="exampleFormControlTextarea6" rows="4" placeholder="Write something here..."></textarea>
+     </div>
    </ul>
  </base-card>
 </template>
@@ -38,7 +42,25 @@ export default {
 .list-group-item:hover{
   background-color: #f5f5f5;
 }
+.card {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
+.Categories{
+  display: inline-block;
+  min-width: 130px;
+  font-size: 24px;
+}
+.shadow-textarea textarea.form-control::placeholder {
+  font-weight: 300;
+}
+.shadow-textarea textarea:read-only{
+  background: #fff;
+}
+.shadow-textarea textarea.form-control {
+  padding-left: 0.8rem;
+}
 .Stars {
   --star-size: 30px;
   --star-color: #d7d7d7;

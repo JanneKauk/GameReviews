@@ -1,25 +1,22 @@
 <template>
-  <li class="list-group-item d-flex justify-content-between">
-    <router-link style="text-decoration: none; color: #323232; width: 100%" :to="'/gamedetails/' + games[getIndex].name" @click="storeName(games[getIndex].name)">
-      <div style="display: flex">
-        <div class="container">
-          <h3 style="text-align: left">
-            {{getIndex+1+": "}}{{ games[getIndex].name }}<br>
-            Platforms: {{ games[getIndex].platforms }}<br>
-            <span class="Stars" :style="`--rating: ${games[getIndex].score}`">{{" "+games[getIndex].score}}
-            </span>
-          </h3>
-        </div>
-        <img style="max-height: 100px" alt="" :src="'/img/'+games[getIndex].image">
-      </div>
-    </router-link>
-
-  </li>
+ <base-card>
+   <ul>
+     <h2>{{reviews[getIndex].username}}</h2>
+     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].graphics}`">{{" "+reviews[getIndex].graphics}}</span></li>
+     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].story}`">{{" "+reviews[getIndex].story}}</span></li>
+     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].characters}`">{{" "+reviews[getIndex].characters}}</span></li>
+     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].content}`">{{" "+reviews[getIndex].content}}</span></li>
+     <li>Graphics: <span class="Stars" :style="`--rating: ${reviews[getIndex].playability}`">{{" "+reviews[getIndex].playability}}</span></li>
+     <textarea v-text="reviews[getIndex].reviewtext" readonly></textarea>
+   </ul>
+ </base-card>
 </template>
 
 <script>
+import BaseCard from '@/components/ui/BaseCard';
 export default {
-  name: 'GameListElem',
+  name: 'GameReviewElem',
+  components: {BaseCard},
   props:{
     lIndex:{
       type: Number,
@@ -27,24 +24,17 @@ export default {
     }
   },
   computed:{
-    games(){
-      return this.$store.getters.games
+    reviews(){
+      return this.$store.getters.reviews;
     },
     getIndex(){
       return this.lIndex;
-    },
-  },
-  methods:{
-    storeName(str) {
-      this.$store.dispatch("querySingleGameAction", str)
     },
   }
 };
 </script>
 
-
 <style scoped>
-
 .list-group-item:hover{
   background-color: #f5f5f5;
 }
@@ -82,6 +72,10 @@ body {
 
 .page-link{
   color:#394fffde;
+}
+ul{
+  list-style: none;
+  text-align: left;
 }
 
 </style>

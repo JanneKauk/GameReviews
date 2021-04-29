@@ -5,7 +5,7 @@
         <h3 style="text-align: left">
           {{getIndex+1+": "}}{{ games[getIndex].name }}<br>
           Platforms: {{ games[getIndex].platforms }}<br>
-          <span class="Stars" :style="`--rating: ${games[getIndex].score}`">{{games[getIndex].score}}
+          <span class="Stars" :style="`--rating: ${games[getIndex].score}`">{{" "+games[getIndex].score}}
           </span>
         </h3>
       </div>
@@ -59,7 +59,6 @@ export default {
 }
 .Stars::before {
   content: "★★★★★";
-  letter-spacing: 3px;
   background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

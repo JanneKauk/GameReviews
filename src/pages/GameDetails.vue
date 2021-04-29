@@ -17,22 +17,22 @@
                 </div>
                 <div class="ratings">
                     <label>Score: 
-                        <div class="Stars" :style="`--rating: ${gameScore}`">{{gameScore}}</div>
+                        <div class="Stars" :style="`--rating: ${gameScore}`">{{" "+gameScore}}</div>
                     </label>
                     <label>Graphics: 
-                        <div class="Stars" :style="`--rating: ${gameGraphics}`">{{gameGraphics}}</div>
+                        <div class="Stars" :style="`--rating: ${gameGraphics}`">{{" "+gameGraphics}}</div>
                     </label>
                     <label>Characters: 
-                        <div class="Stars" :style="`--rating: ${gameCharacters}`">{{gameCharacters}}</div>
+                        <div class="Stars" :style="`--rating: ${gameCharacters}`">{{" "+gameCharacters}}</div>
                     </label>
                     <label>Story: 
-                        <div class="Stars" :style="`--rating: ${gameStory}`">{{gameStory}}</div>
+                        <div class="Stars" :style="`--rating: ${gameStory}`">{{" "+gameStory}}</div>
                     </label>
                     <label>Content: 
-                        <div class="Stars" :style="`--rating: ${gameContent}`">{{gameContent}}</div>
+                        <div class="Stars" :style="`--rating: ${gameContent}`">{{" "+gameContent}}</div>
                     </label>
                     <label>Playability: 
-                        <div class="Stars" :style="`--rating: ${gamePlayability}`">{{gamePlayability}}</div>
+                        <div class="Stars" :style="`--rating: ${gamePlayability}`">{{" "+gamePlayability}}</div>
                     </label>
                     
                     
@@ -195,7 +195,6 @@ button {
 }
 .Stars::before {
     content: "★★★★★";
-    letter-spacing: 3px;
     background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

@@ -37,7 +37,7 @@
                 </div>
             </div>
             <add-review @close="hideDialog" :open="dialogIsVisible">
-                <button @click="hideDialog">Close dialog</button>
+                <!-- <button @click="hideDialog">Close dialog</button> -->
             </add-review>
             
         </base-card>  

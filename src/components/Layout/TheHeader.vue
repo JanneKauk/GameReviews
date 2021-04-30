@@ -32,6 +32,7 @@ button {
   padding: 0;
   margin: 2rem;
   cursor: pointer;
+  outline: none;
 
   @media screen and (-ms-high-contrast: active) {
     border: 2px solid currentcolor;

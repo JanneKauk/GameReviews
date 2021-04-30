@@ -21,7 +21,7 @@ const router = createRouter({
             props: true,
         }, 
         { path: '/search/:search', component: SearchedGames, props: true, name: 'search'},
-        { path: '/', redirect: '/gameslist/score' },
+        { path: '/', redirect: '/gameslist/best_rated' },
         { path: '/:notFound(.*)', component: NotFound},
 
     ],

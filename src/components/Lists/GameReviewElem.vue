@@ -2,10 +2,10 @@
  <base-card>
    <ul style="width: 95%">
      <h2>{{reviews[getIndex].username}}</h2>
-     <li><span class="Categories">Story:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].story}`">{{" "+reviews[getIndex].story}}</span></li>
      <li><span class="Categories">Graphics:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].graphics}`">{{" "+reviews[getIndex].graphics}}</span></li>
-     <li><span class="Categories">Content:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].content}`">{{" "+reviews[getIndex].content}}</span></li>
      <li><span class="Categories">Characters:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].characters}`">{{" "+reviews[getIndex].characters}}</span></li>
+     <li><span class="Categories">Story:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].story}`">{{" "+reviews[getIndex].story}}</span></li>
+     <li><span class="Categories">Content:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].content}`">{{" "+reviews[getIndex].content}}</span></li>
      <li><span class="Categories">Playability:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].playability}`">{{" "+reviews[getIndex].playability}}</span></li>
      <br>
      <div class="form-group shadow-textarea">

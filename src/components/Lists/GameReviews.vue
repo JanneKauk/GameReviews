@@ -1,8 +1,11 @@
 <template>
     <section class="container" v-if="checkIfReady">
-      <ul class="list-group">
+      <base-card style="margin: auto" v-if="getList.length < 1">
+        <h1 style="margin: auto">No reviews</h1>
+      </base-card>
+      <ul v-else class="list-group">
         <GameReviewElem v-for="index in listLength" :key="index" :l-index="calcIndex(index)"></GameReviewElem>
-        <nav aria-label="Page navigation example" class="paginationholder">
+        <nav aria-label="Page navigation example" class="paginationholder" v-if="getList.length > 5">
           <ul class="pagination" id="pages">
             <li class="page-item"><a class="page-link" v-on:click="updatePage(-1)">Previous</a></li>
             <li class="page-item"><a class="page-link" v-on:click="updatePage(+1)">Next</a></li>
@@ -15,9 +18,11 @@
 <script>
 
 import GameReviewElem from '@/components/Lists/GameReviewElem';
+import BaseCard from '@/components/ui/BaseCard';
 export default {
   name: "GameReviews",
   components:{
+    BaseCard,
     GameReviewElem,
 
   },
@@ -39,7 +44,7 @@ export default {
     },
     checkIfReady(){
       let r = this.$store.getters.reviewsReady;
-      console.log("Is it ready?(reviews): "+r);
+      //console.log("Is it ready?(reviews): "+r);
       if(r && !this.initialized) this.init();
       return r;
     },

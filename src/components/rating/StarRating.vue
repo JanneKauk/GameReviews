@@ -1,14 +1,14 @@
 <template>
     <div :class="rating">
-        <input type="radio" @click="whichCategory" :name="category" :id="'star5'" value="5"/><label :for="'star5'">5</label>
+        <input type="radio" @click="whichCategory" :name="category" :id="'star5'+cat" value="5"/><label :for="'star5'+cat">5</label>
         
-        <input type="radio" :name="category" :id="'star4'" value="4"/><label :for="'star4'">4</label>
+        <input type="radio" :name="category" :id="'star4'+cat" value="4"/><label :for="'star4'+cat">4</label>
         
-        <input type="radio" :name="category" :id="'star3'" value="3"/><label :for="'star3'">3</label>
+        <input type="radio" :name="category" :id="'star3'+cat" value="3"/><label :for="'star3'+cat">3</label>
         
-        <input type="radio" :name="category" :id="'star2'" value="2" /><label :for="'star2'">2</label>
+        <input type="radio" :name="category" :id="'star2'+cat" value="2" /><label :for="'star2'+cat">2</label>
 
-        <input type="radio" :name="category" :id="'star1'" value="1" /><label :for="'star1'">1</label>
+        <input type="radio" :name="category" :id="'star1'+cat" value="1" /><label :for="'star1'+cat">1</label>
     </div>
 </template>
 
@@ -27,6 +27,9 @@ export default {
         }
     },
     computed: {
+      cat() {
+        return this.category
+      },
         // whichId() {
         //     return this.id;
         // }
@@ -35,17 +38,20 @@ export default {
 </script>
 
 <style scoped>
-/* .rating {
+ .rating {
     float:left;
-} */
+}
 
-/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
+ :not(:checked) is a filter, so that browsers that don’t support :checked don’t
    follow these rules. Every browser that supports :checked also supports :not(), so
-   it doesn’t make the test unnecessarily selective */
-/* .rating:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
+   it doesn’t make the test unnecessarily selective
+ .rating:not(:checked) > input {
+
     clip:rect(0,0,0,0);
+}
+.rating input{
+  position:absolute;
+  top:-9999px;
 }
 
 .rating:not(:checked) > label {
@@ -89,5 +95,5 @@ export default {
     position:relative;
     top:2px;
     left:2px;
-} */
+}
 </style>

@@ -5,29 +5,8 @@
             <dialog open v-if="open">
                 <form @submit.prevent="submitForm">
                     <div>
-                        <star-rating :category="'test'" :rating="'rating'"></star-rating>
-                    </div>
-                    <div class="storyStars">
-                        <input type="radio" class="storyStar" name="story" id="'story1'" value="1"/><label @click="allStars(1)" :class="'fa fa-star ' + storyComputed.first" for="'story1'"></label>
-        
-                        <input type="radio" class="storyStar" name="story" id="'story2'" value="2"/><label @click="allStars(2)" :class="'fa fa-star ' + storyComputed.second" for="'story2'"></label>
-        
-                        <input type="radio" class="storyStar" name="story" id="'story3'" value="3"/><label @click="allStars(3)" :class="'fa fa-star ' + storyComputed.third" for="'story3'"></label>
-                        
-                        <input type="radio" class="storyStar" name="story" id="'story4'" value="4" /><label @click="allStars(4)" :class="'fa fa-star ' + storyComputed.fourth" for="'story4'"></label>
-
-                        <input type="radio" class="storyStar" name="story" id="'story5'" value="5" /><label @click="allStars(5)" :class="'fa fa-star ' + storyComputed.fifth" for="'story5'"></label>
-                    </div>
-                    <div class="contentStars">
-                        <input type="radio" class="contentStar" name="content" id="'content1'" value="1"/><label @click="changeClass(1)" :class="'fa fa-star ' + allStars(1)" for="'content1'"></label>
-        
-                        <input type="radio" class="contentStar" name="content" id="'content2'" value="2"/><label @click="changeClass(2)" :class="'fa fa-star ' + allStars(2)" for="'content2'"></label>
-        
-                        <input type="radio" class="contentStar" name="content" id="'content3'" value="3"/><label @click="changeClass(3)" :class="'fa fa-star ' + allStars(3)" for="'content3'"></label>
-                        
-                        <input type="radio" class="contentStar" name="content" id="'content4'" value="4" /><label @click="changeClass(4)" :class="'fa fa-star ' + allStars(4)" for="'content4'"></label>
-
-                        <input type="radio" class="contentStar" name="content" id="'content5'" value="5" /><label @click="changeClass(5)" :class="'fa fa-star ' + allStars(5)" for="'content5'"></label>
+                      <star-rating :category="'Graphics'" :rating="'rating'"></star-rating><br>
+                      <star-rating :category="'test2'" :rating="'rating'"></star-rating>
                     </div>
                     <section class="form-section">
                         <div class="form-div">
@@ -70,44 +49,7 @@ export default {
         }
     },
     methods: {
-        changeClass(num) {
-            console.log("checkbox clicked through label " + num + " " + this.storyLabel.first);
-            
-        },
-        allStars(num) {
-            if(num === 1) {
-                this.storyLabel.first === 'checked';
-                this.storyLabel.second === '';
-                this.storyLabel.third === '';
-                this.storyLabel.fourth === '';
-                this.storyLabel.fifth === '';
-                return 'checked';
-            } else if (num === 2) {
-                this.storyLabel.first === 'checked';
-                this.storyLabel.second === 'checked';
-                this.storyLabel.third === '';
-                this.storyLabel.fourth === '';
-                this.storyLabel.fifth === '';
-            }else if (num === 3) {
-                this.storyLabel.first === 'checked';
-                this.storyLabel.second === 'checked';
-                this.storyLabel.third === 'checked';
-                this.storyLabel.fourth === '';
-                this.storyLabel.fifth === '';
-            } else if (num === 4) {
-                this.storyLabel.first === 'checked';
-                this.storyLabel.second === 'checked';
-                this.storyLabel.third === 'checked';
-                this.storyLabel.fourth === 'checked';
-                this.storyLabel.fifth === '';
-            } else if (num === 5) {
-                this.storyLabel.first === 'checked';
-                this.storyLabel.second === 'checked';
-                this.storyLabel.third === 'checked';
-                this.storyLabel.fourth === 'checked';
-                this.storyLabel.fifth === 'checked';
-            }
-        }
+
     },
 };
 
@@ -115,7 +57,7 @@ export default {
 
 
 <style scoped>
-.storyStar {
+/*.storyStar {
  visibility: hidden;
 }
 
@@ -128,7 +70,7 @@ export default {
 
 .checked:hover {
     color: red;
-}
+}*/
 
  button {
   border: 2px solid #DE004A;
@@ -139,8 +81,6 @@ export default {
   margin: 3rem 0 0 0;
   cursor: pointer;
   display: inline-block;
-
-
   @media screen and (-ms-high-contrast: active) {
     border: 2px solid currentcolor;
   }

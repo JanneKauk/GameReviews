@@ -1,14 +1,17 @@
 <template>
     <div :class="rating">
-        <input type="radio" @click="whichCategory" :name="category" :id="'star5'+cat" value="5"/><label :for="'star5'+cat">5</label>
+        <input type="radio" @click="getValue" :name="category" :id="'star5'+cat" value="5" /><label :for="'star5'+cat">5</label>
         
-        <input type="radio" :name="category" :id="'star4'+cat" value="4"/><label :for="'star4'+cat">4</label>
+        <input type="radio" @click="getValue" :name="category" :id="'star4'+cat" value="4"  /><label :for="'star4'+cat">4</label>
         
-        <input type="radio" :name="category" :id="'star3'+cat" value="3"/><label :for="'star3'+cat">3</label>
+        <input type="radio" @click="getValue" :name="category" :id="'star3'+cat" value="3"  /><label :for="'star3'+cat">3</label>
         
-        <input type="radio" :name="category" :id="'star2'+cat" value="2" /><label :for="'star2'+cat">2</label>
+        <input type="radio" @click="getValue" :name="category" :id="'star2'+cat" value="2"  /><label :for="'star2'+cat">2</label>
 
-        <input type="radio" :name="category" :id="'star1'+cat" value="1" /><label :for="'star1'+cat">1</label>
+        <input type="radio" @click="getValue" :name="category" :id="'star1'+cat" value="1"  /><label :for="'star1'+cat">1</label>
+    </div>
+    <div class="emitDiv">
+        <button @click="getValue" class="emitButton"></button> <!--Don't remove div or button. Needed for second event. -->
     </div>
 </template>
 
@@ -16,35 +19,40 @@
 <script>
 export default {
     props: ['category', 'rating', 'id'],
+    
     data() {
         return {
-           
+
         };
     },
     methods: {
-        whichCategory() {
-            console.log(this.category + " " + this.rating);
-        }
+        getValue(event) {
+            this.$emit('click', event.target.value, this.category);
+        },
     },
     computed: {
       cat() {
-        return this.category
+        return this.category;
       },
-        // whichId() {
-        //     return this.id;
-        // }
     }
 }
 </script>
 
 <style scoped>
+
+.emitButton,
+.emitDiv {
+    visibility: hidden;
+    height: 0;
+}
+
  .rating {
     float:left;
 }
 
- :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+ /*:not(:checked) is a filter, so that browsers that don’t support :checked don’t
    follow these rules. Every browser that supports :checked also supports :not(), so
-   it doesn’t make the test unnecessarily selective
+   it doesn’t make the test unnecessarily selective*/
  .rating:not(:checked) > input {
 
     clip:rect(0,0,0,0);

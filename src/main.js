@@ -122,6 +122,22 @@ const store = createStore( {
                 console.log(error.res);
             }
             )
+        },
+        async addReview(context, payload) {
+            console.log("addReviewAction " + payload)
+            await instance.post('/addreview', {
+                title: payload.title,
+                review: payload.review,
+                playability: payload.playability,
+                story: payload.story,
+                content: payload.content,
+                graphics: payload.graphics,
+                characters: payload.characters
+            }).then(res => {
+                console.log(res.data)
+            }).catch((error) => {
+                console.log(error.res);
+            })
         }
     },
     getters: {

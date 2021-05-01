@@ -16,24 +16,14 @@
                     <iframe width="420" height="345" :src="'https://www.youtube.com/embed/' + gameUrl"></iframe>
                 </div>
                 <div class="ratings">
-                    <label>Score: 
-                        <div class="Stars" :style="`--rating: ${gameScore}`">{{" "+gameScore}}</div>
-                    </label>
-                    <label>Graphics: 
-                        <div class="Stars" :style="`--rating: ${gameGraphics}`">{{" "+gameGraphics}}</div>
-                    </label>
-                    <label>Characters: 
-                        <div class="Stars" :style="`--rating: ${gameCharacters}`">{{" "+gameCharacters}}</div>
-                    </label>
-                    <label>Story: 
-                        <div class="Stars" :style="`--rating: ${gameStory}`">{{" "+gameStory}}</div>
-                    </label>
-                    <label>Content: 
-                        <div class="Stars" :style="`--rating: ${gameContent}`">{{" "+gameContent}}</div>
-                    </label>
-                    <label>Playability: 
-                        <div class="Stars" :style="`--rating: ${gamePlayability}`">{{" "+gamePlayability}}</div>
-                    </label>
+                    <ul class="ratings__ul">
+                        <li><span class="categories"><strong>Score:</strong> </span><span class="Stars" :style="`--rating: ${gameScore}`">{{" &nbsp;"+gameScore}}</span></li>
+                        <li><span class="categories">Graphics: </span><span class="Stars" :style="`--rating: ${gameGraphics}`">{{" &nbsp;"+gameGraphics}}</span></li>
+                        <li><span class="categories">Characters: </span><span class="Stars" :style="`--rating: ${gameCharacters}`"> {{" &nbsp;"+gameCharacters}}</span></li>
+                        <li><span class="categories">Story: </span><span class="Stars" :style="`--rating: ${gameStory}`">{{" &nbsp;"+gameStory}}</span></li>
+                        <li><span class="categories">Content: </span><span class="Stars" :style="`--rating: ${gameContent}`">{{" &nbsp;"+gameContent}}</span></li>
+                        <li><span class="categories">Playability: </span><span class="Stars" :style="`--rating: ${gamePlayability}`">{{" &nbsp;"+gamePlayability}}</span></li>
+                    </ul>
                 </div>
             </div>
             <add-review @close="hideDialog" :open="dialogIsVisible">
@@ -133,14 +123,40 @@ export default {
     justify-content: space-between;
 }
 
+li {
+    list-style: none;
+    /* display: flex;
+    flex-direction: row; */
+    /* align-content: center; */
+    padding: 10px;
+    display: inline-block;
+    text-align: initial;
+    min-width: 15rem;
+}
 
+.categories {
+    display: flex;
+    font-size: 1.4rem;
+    width: 100%;
+    min-width: 5rem;
+}
 
 text{
     flex: 2;
 }
 
 button {
-    max-width: 6rem;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    background-color: #FF004A;
+    color: #fff;
+    border: 0.5px solid rgb(228, 225, 225);
+    cursor: pointer;
+    /* border-radius: 30px; */
+    /* margin-right: 0.5rem; */
+    margin: 5rem 1rem 3rem 4rem;
+    display: inline-block;
+    /* max-width: 6rem;
     display: block;
     width: 100%;
     font: inherit;
@@ -149,8 +165,12 @@ button {
     padding: 0.15rem;
     background-color: #DE004A;
     color: #F7F3F3;
-    /* align-self: flex-end; */
-    flex: 1;
+    flex: 1; */
+}
+
+button:hover {
+    background-color: #B0004A;
+    border-color: black;
 }
 
 
@@ -163,23 +183,33 @@ button {
 .ratings {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin: 2rem 5rem 0 5rem;
+    align-items: center;
+    justify-self: center;
+    /* margin: 2rem 0 0 8rem; */
 }
 
+.ratings__ul {
+    width: 80%;
+    text-align: center;
+    padding: 0;
+    margin-left: 6rem;
+}
 .video {
     display: flex;
     justify-content: flex-end;
-    margin: 1rem 1rem 0 0;
+    margin: 1rem 0 1rem 0;
 }
 
-@media only screen and (max-width: 1090px) {
+@media only screen and (max-width: 1090px)  {
     .video iframe {
-        width: 280px;
-        height: 200px;
+        width: 30rem;
+        height: 23rem;
+        margin: 0 0 1rem 0;
     }
     .right-side {
         align-items: center;
+        padding: 0;
+        margin: 0;
     }
     .text {
         font-size: 1rem;
@@ -191,7 +221,43 @@ button {
     button {
         margin: 5rem 2rem 3rem 0;
     }
-    
+    .ratings {
+        margin: 0;
+    }
+    .ratings__ul {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        margin-left: 3rem;
+    }
+}
+
+@media only screen and (min-width: 1090px) {
+    .ratings {
+        align-items: center;
+        margin: 1rem -4rem 0 0;
+        
+    }
+    .video {
+        margin: 1rem 1rem 1rem 0;
+    }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 690px) {
+    .video iframe {
+        width: 20rem;
+        height: 18rem;
+        margin: 0 0 0 0;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .video iframe {
+        width: 15rem;
+        height: 14rem;
+        margin: 0 0 0 0;
+    }
 }
 
 .Stars {
@@ -200,10 +266,11 @@ button {
   --star-background: #fc0;
   --percent: calc(var(--rating) / 5 * 100%);
   --user-gradient: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
-  display: inline-block;
+  display: flex;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   font-size: var(--star-size);
   line-height: 1;
+
 }
 .Stars::before {
     content: "★★★★★";

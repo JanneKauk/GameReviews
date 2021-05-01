@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="container">
-      <div>
+      <div v-if="!phoneMode">
         <router-link to="/gameslist/best_rated" v-on:click="storeString('score')">Score</router-link>
         <router-link to="/gameslist/graphics" v-on:click="storeString('graphics')">Graphics</router-link>
         <router-link to="/gameslist/story" v-on:click="storeString('story')">Story</router-link>
@@ -9,6 +9,7 @@
         <router-link to="/gameslist/content" v-on:click="storeString('content')">Content</router-link>
         <router-link to="/gameslist/characters" v-on:click="storeString('characters')">Characters</router-link>
       </div>
+      <div v-else :class="hamburger" @click="phoneModeSwitch"><button>Links</button></div>
       <div>
         <label>
           <input id="searchbar" placeholder="search" v-model="searchValue" @keypress.enter="searchGames"/>
@@ -26,11 +27,18 @@ export default {
     return {
       category: 'score',
       test: '✰✰✰✰✰',
-      searchValue: ''
+      searchValue: '',
+      phoneMode: false,
+      hamburgerClass: 'button'
     };
   },
   created: function() {
     this.load();
+  },
+  computed: {
+    hamburger() {
+      return this.hamburgerClass;
+    }
   },
   methods: {
     storeString(str){
@@ -49,6 +57,9 @@ export default {
       this.$router.push({ name: 'search', params: { search: this.searchValue}});
       this.$store.commit('searchListReady', true);
       
+    },
+    phoneModeSwitch() {
+      this.phoneMode = !this.phoneMode;
     }
   },
 }
@@ -64,7 +75,7 @@ nav {
   /*max-width: 69.5rem;*/
   margin: auto;
   /*gap: 23.5rem;*/
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.26);
+  /* box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.26); */
 }
 
 select {
@@ -81,8 +92,15 @@ input {
 }
 
 button {
-  background-color: transparent;
-  border: none;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  background-color: #FF004A;
+  color: #fff;
+  border: 0.5px solid rgb(228, 225, 225);
+  cursor: pointer;
+  /* border-radius: 30px; */
+  margin-right: 0.5rem;
+  display: inline-block;
 }
 
 a {

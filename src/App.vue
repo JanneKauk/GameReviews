@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-header :login="loginSignUp" @open="showDialog"></the-header>
+    <the-header :login="loginSignupText" @open="showDialog"></the-header>
     <base-game></base-game>
     <router-view v-slot="slotProps"> 
       <transition name="route" mode="out-in">
@@ -37,6 +37,16 @@ export default {
     },
     hideDialog() {
       this.dialogIsVisible = false;
+    }
+  },
+  computed: {
+    loginSignupText() {
+      let loggedIn = this.$store.getters.getUser;
+      if(loggedIn) {
+        return '' + loggedIn.user;
+      } else {
+        return 'Login / Sign up';
+      }
     }
   }
 

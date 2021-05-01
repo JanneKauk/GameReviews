@@ -141,7 +141,7 @@ app.post('/search', function(req, res) {
     let str = q.search.toLowerCase();
     console.log("Game name for sql query: " + str);
 
-    con.query('Select * from games where name = ?', str, function(err, result) {
+    con.query('Select * from games where name like ?','%' + str + '%', function(err, result) {
         if(err) throw err;
         res.send(result);
     })

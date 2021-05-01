@@ -1,15 +1,21 @@
 <template>
   <header>
+    <!-- <base-game></base-game> -->
     <div>
-      <button @click="$emit('open')">{{ login }}</button>
+      <button class="loginbutton" @click="$emit('open')">{{ login }}</button>
       <!-- <router-link to="/Login"><h1>{{ login }}</h1></router-link> -->
     </div>
+    
 
   </header>
 </template>
 
 <script>
+// import BaseGame from './BaseGame.vue';
 export default {
+  components: {
+    // BaseGame
+  },
   props: {
     login: {
       type: String,
@@ -25,7 +31,11 @@ export default {
 </script>
 
 <style scoped>
-button {
+
+
+.loginbutton {
+  display: flex;
+  align-self: flex-end;
   border: none;
   background-color: transparent;
   font-family: inherit;
@@ -34,10 +44,11 @@ button {
   cursor: pointer;
   outline: none;
 
-  @media screen and (-ms-high-contrast: active) {
-    border: 2px solid currentcolor;
-  }
+  
 }
+@media screen and (-ms-high-contrast: active) {
+   .loginbutton { border: 2px solid currentcolor;}
+  }
 
 header {
   width: 100%;

@@ -4,7 +4,7 @@
             <div class="textandbutton">
                 <div class="text">
                     <h3>{{ gameName }}</h3>
-                    <p>{{ gamePlatforms }}</p>
+                    <p><br><b>{{"Platforms: "+ gamePlatforms }}<br>{{"Genres: "+getGame.genre}}<br>{{"Release date: "+date}}<br>{{"Publisher: "+getGame.publisher}}<br>{{"Developer: "+getGame.developer}}</b></p>
                     <p>{{ gameSummary }}</p>
                 </div>
                 <div class="review">
@@ -104,6 +104,14 @@ export default {
         },
         gameSummary() {
             return this.game[0].summary;
+        },
+        getGame(){
+          return this.game[0];
+        },
+        date(){
+          // let date = new Date();
+          let date = this.game[0].releaseDate.toString().slice(0,10);
+          return date
         }
     },
     created() {

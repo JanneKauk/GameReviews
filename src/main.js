@@ -21,7 +21,8 @@ const store = createStore( {
             user: null,
             reviewList: null,
             searchResult: null,
-            searchListReady: false
+            searchListReady: false,
+            isLoggedIn: false
         }
     },
     mutations: {
@@ -55,6 +56,7 @@ const store = createStore( {
         },
         authenticatedUser(state, payload) {
             state.user = payload;
+            state.isLoggedIn = true;
         },
         searchMutation(state, payload) {
             state.searchResult = payload;
@@ -105,7 +107,8 @@ const store = createStore( {
             await instance.post('/register', { email: payload.email, username: payload.username, password: payload.password }).then(res => {
 
                 console.log(res.data);
-                context.commit('authenticatedUser', res.data)
+                context.dispatch('loginUser', {email: payload.email, password: payload.password});
+                // context.commit('authenticatedUser', res.data)
             }).catch((error) => {
                 console.log("error");
                 console.log(error.res);
@@ -172,6 +175,9 @@ const store = createStore( {
         },
         getSearchReady(state) {
             return state.searchListReady;
+        },
+        getIsLoggedIn(state) {
+            return state.isLoggedIn;
         }
     }
 });

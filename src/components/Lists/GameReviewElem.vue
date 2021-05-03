@@ -9,7 +9,7 @@
      <li><span class="Categories">Playability:</span><span class="Stars" :style="`--rating: ${reviews[getIndex].playability}`">{{" "+reviews[getIndex].playability}}</span></li>
      <br>
      <div class="form-group shadow-textarea">
-       <label for="exampleFormControlTextarea6">User Review</label>
+       <label for="exampleFormControlTextarea6"><h4>{{ reviews[getIndex].title }}</h4></label>
        <textarea readonly class="form-control z-depth-1" v-text="reviews[getIndex].reviewtext" id="exampleFormControlTextarea6" rows="4" placeholder="Write something here..."></textarea>
      </div>
    </ul>

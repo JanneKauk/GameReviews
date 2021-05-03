@@ -103,7 +103,7 @@ app.get('/gamereviews', function (req, res) {
     let q = url.parse(req.url, true).query;
     let str = q.sortby;
     console.log("Game id for sql query: "+str);
-    con.query("SELECT users.username, reviews.reviewtext, graphics, characters, story, content, playability FROM reviews, users WHERE reviews.`game-id` = " + str + " AND users.id = reviews.`user-id`", function (err, result) {
+    con.query("SELECT users.username, title, reviews.reviewtext, graphics, characters, story, content, playability FROM reviews, users WHERE reviews.`game-id` = " + str + " AND users.id = reviews.`user-id`", function (err, result) {
         if (err) throw err;
         console.log(result);
         console.log("Query successful");

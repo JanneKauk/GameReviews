@@ -4,21 +4,21 @@
         <transition name="modal">
             <dialog open v-if="open">
                 <form @submit.prevent="addReview">
-                    <div>
-                      <star-rating @click="starValue" :category="'Story'" :rating="'rating'"></star-rating><br>
-                      <star-rating @click="starValue" :category="'Graphics'" :rating="'rating'"></star-rating><br>
-                      <star-rating @click="starValue" :category="'Characters'" :rating="'rating'"></star-rating><br>
-                      <star-rating @click="starValue" :category="'Content'" :rating="'rating'"></star-rating><br>
+                    <div class="container">
+                      <h2 style="margin: 2rem 0 2rem 0">Game Review</h2>
+                      <star-rating @click="starValue" :category="'Graphics'" :rating="'rating'"></star-rating>
+                      <star-rating @click="starValue" :category="'Characters'" :rating="'rating'"></star-rating>
+                      <star-rating @click="starValue" :category="'Story'" :rating="'rating'"></star-rating>
+                      <star-rating @click="starValue" :category="'Content'" :rating="'rating'"></star-rating>
                       <star-rating @click="starValue" :category="'Playability'" :rating="'rating'"></star-rating>
+                      <br>
                     </div>
-                    <section class="form-section">
+                  <section class="form-section">
                         <div class="form-div">
-                            <label for="title">title</label>
-                            <input id="title" name="title" v-model.trim="title" />
+                            <input placeholder="The header for your review." id="title" name="title" v-model.trim="title" />
                         </div>
                         <div class="form-div">
-                            <label for="review">review</label>
-                            <textarea id="review" name="review" rows="5" v-model.trim="review">
+                            <textarea placeholder="Write your thoughts on the game here." id="review" name="review" rows="5" v-model.trim="review">
 
                             </textarea>
                         </div>
@@ -149,7 +149,7 @@ export default {
   margin: 3rem 0 0 0;
   cursor: pointer;
   display: inline-block;
-  
+
 }
 @media screen and (-ms-high-contrast: active) {
     button {
@@ -168,17 +168,19 @@ label {
 .form-div input,
 .form-div textarea {
     display: flex;
-    /* width: 100%; */
+    width: 100%;
     font: inherit;
     border: 1px solid #ccc;
     padding: 0.15rem;
 } 
 
 .form-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
+  /*  display: flex;*/
+  /*  flex-direction: column;*/
+  /*  align-items: center;*/
+  /*  margin: auto;*/
+  margin-top: 0.5rem;
+  width: 90%;
 }
 
 .form-section {
@@ -190,7 +192,6 @@ label {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  
 }
 
 form {

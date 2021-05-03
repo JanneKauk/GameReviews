@@ -8,7 +8,7 @@
         
         <input type="radio" @click="getValue" :name="category" :id="'star2'+cat" value="2"  /><label :for="'star2'+cat">2</label>
 
-        <input type="radio" @click="getValue" :name="category" :id="'star1'+cat" value="1"  /><label :for="'star1'+cat">1</label>
+        <input type="radio" @click="getValue" :name="category" :id="'star1'+cat" value="1"  /><label :for="'star1'+cat">1</label><span>{{ cat+": " }}</span>
     </div>
     <div class="emitDiv">
         <button @click="getValue" class="emitButton"></button> <!--Don't remove div or button. Needed for second event. -->
@@ -46,15 +46,29 @@ export default {
     height: 0;
 }
 
- .rating {
-    float:left;
-}
+.rating {
+    /*float:left;*/
+  /*text-align: center;*/
 
+}
+div span{
+  font-size: 22px;
+  text-align: left;
+  display: inline-block;
+  min-width: 28%;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1.7;
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
  /*:not(:checked) is a filter, so that browsers that don’t support :checked don’t
    follow these rules. Every browser that supports :checked also supports :not(), so
    it doesn’t make the test unnecessarily selective*/
  .rating:not(:checked) > input {
-
     clip:rect(0,0,0,0);
 }
 .rating input{
@@ -63,14 +77,14 @@ export default {
 }
 
 .rating:not(:checked) > label {
-    float:right;
+    /*float:right;*/
     width:1em;
     padding:0 .1em;
     overflow:hidden;
-    white-space:nowrap;
+    white-space: nowrap;
     cursor:pointer;
-    font-size:200%;
-    line-height:1.2;
+    font-size:170%;
+    line-height:1;
     color:#ddd;
     text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
 }
@@ -82,6 +96,14 @@ export default {
 .rating > input:checked ~ label {
     color: #f70;
     text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+.rating{
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+  line-height: 0;
 }
 
 .rating:not(:checked) > label:hover,

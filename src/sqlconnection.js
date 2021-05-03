@@ -78,24 +78,34 @@ app.post('/addreview',
             console.log("error?");
             return res.status(400).json({errors: errors.array()});
         }
-        console.log("before sql");
-        con.query("INSERT INTO reviews (`game-id`, `user-id`, title, reviewtext, graphics, characters, story, content, playability) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.gameID, req.body.userID, req.body.title, req.body.review, req.body.graphics, req.body.characters, req.body.story, req.body.content, req.body.playability], (err, result) => {
+        con.query("SELECT * FROM reviews WHERE `game-id` = ?  and `user-id` = ?", [req.body.gameID, req.body.userID], (err, results) => {
             if(err) throw err;
-            console.log(result);
-            console.log('Success???');
-            
+            if(results.length !== 0) {
+                console.log("Review exists");
+                res.send('Review already exists');
+            }else {
+                console.log('välivaihe');
+
+                con.query("INSERT INTO reviews (`game-id`, `user-id`, title, reviewtext, graphics, characters, story, content, playability) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.gameID, req.body.userID, req.body.title, req.body.review, req.body.graphics, req.body.characters, req.body.story, req.body.content, req.body.playability], (err, result) => {
+                    if (err) throw err;
+                    console.log(result);
+                    console.log('Success???');
+
+                })
+                con.query("UPDATE games SET games.graphics = ROUND((SELECT AVG(reviews.graphics) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+                    "games.characters = ROUND((SELECT AVG(reviews.characters) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+                    "games.story = ROUND((SELECT AVG(reviews.story) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+                    "games.content = ROUND((SELECT AVG(reviews.content) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+                    "games.playability = ROUND((SELECT AVG(reviews.playability) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+                    "games.score = ROUND(((games.graphics + games.characters + games.story + games.content + games.playability)/5),1);\n", function (err) {
+                    if (err) throw err;
+                    //console.log("Update tables: "+result)
+                    res.send('success');
+                });
+                console.log(req.body);
+            }
         })
-        con.query("UPDATE games SET games.graphics = ROUND((SELECT AVG(reviews.graphics) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-            "games.characters = ROUND((SELECT AVG(reviews.characters) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-            "games.story = ROUND((SELECT AVG(reviews.story) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-            "games.content = ROUND((SELECT AVG(reviews.content) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-            "games.playability = ROUND((SELECT AVG(reviews.playability) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-            "games.score = ROUND(((games.graphics + games.characters + games.story + games.content + games.playability)/5),1);\n", function (err) {
-                if (err) throw err;
-                //console.log("Update tables: "+result)
-            });
-        console.log(req.body);
-        res.send('success');
+
 
 })
 

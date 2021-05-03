@@ -70,7 +70,8 @@ export default {
         }
       },
       loggedIn() {
-        return this.isLoggedIn;
+        // return this.isLoggedIn;
+        return this.$store.getters.getIsLoggedIn;
       }
     },
     methods: {
@@ -109,6 +110,9 @@ export default {
           }
           console.log("toimii");
           console.log(this.$store.getters.getUser)
+          const tempUser = this.$store.getters.getUser;
+          this.isLoggedIn = tempUser.success;
+          this.user = tempUser.user;
         },
         loginOrSignup() {
           console.log(this.isLogin);

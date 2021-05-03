@@ -1,22 +1,18 @@
 <template>
-  <div>
-    <nav class="container">
-      <div v-if="!phoneMode">
-        <router-link to="/gameslist/best_rated" v-on:click="storeString('score')">Score</router-link>
-        <router-link to="/gameslist/graphics" v-on:click="storeString('graphics')">Graphics</router-link>
-        <router-link to="/gameslist/story" v-on:click="storeString('story')">Story</router-link>
-        <router-link to="/gameslist/playability" v-on:click="storeString('playability')">Playability</router-link>
-        <router-link to="/gameslist/content" v-on:click="storeString('content')">Content</router-link>
-        <router-link to="/gameslist/characters" v-on:click="storeString('characters')">Characters</router-link>
-      </div>
-      <div v-else :class="hamburger" @click="phoneModeSwitch"><button>Links</button></div>
-      <div>
-        <label>
-          <input id="searchbar" placeholder="search" v-model="searchValue" @keypress.enter="searchGames"/>
-        </label>
-      </div>
-    </nav>
+  <div class="sHol">
+    <label style="" class="searchbarholder">
+      <input placeholder="search" v-model="searchValue" @keypress.enter="searchGames"/>
+    </label>
   </div>
+  <div class="buttHol" v-if="!phoneMode">
+    <router-link to="/gameslist/best_rated" v-on:click="storeString('score')">Score</router-link>
+    <router-link to="/gameslist/graphics" v-on:click="storeString('graphics')">Graphics</router-link>
+    <router-link to="/gameslist/story" v-on:click="storeString('story')">Story</router-link>
+    <router-link to="/gameslist/playability" v-on:click="storeString('playability')">Playability</router-link>
+    <router-link to="/gameslist/content" v-on:click="storeString('content')">Content</router-link>
+    <router-link to="/gameslist/characters" v-on:click="storeString('characters')">Characters</router-link>
+  </div>
+  <div v-else :class="hamburger" @click="phoneModeSwitch"><button>Links</button></div>
 
 </template>
 
@@ -66,8 +62,19 @@ export default {
 </script>
 
 <style scoped>
-
+.sHol{
+  flex: 33%;
+}
+.searchbarholder{
+  margin: 15% 2rem 15% 3rem;
+  float: left;
+}
+.buttHol{
+  flex: 33%;
+}
 nav {
+  right: 118px;
+  position: relative;
   display: flex;
   align-items: center;
   background-color: white;
@@ -104,15 +111,20 @@ button {
 }
 
 a {
+
+  border-radius: 20px;
+  width: 8rem;
   text-decoration: none;
   padding: 0.75rem 1.5rem;
   background-color: #FF004A;
   color: #fff;
-  border: 0.5px solid rgb(228, 225, 225);
+  /*border: 1px solid black;*/
+  box-shadow: 0px 0px 3px 1px #818181;
   cursor: pointer;
   /* border-radius: 30px; */
   margin-right: 0.5rem;
   display: inline-block;
+  text-align: center;
 }
 
 a:hover {

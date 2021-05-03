@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <the-header :login="loginSignupText" @open="showDialog"></the-header>
-    <base-game></base-game>
+<!--    <base-game></base-game>-->
     <router-view v-slot="slotProps"> 
       <transition name="route" mode="out-in">
         <component :is="slotProps.Component" />
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import BaseGame from './components/Layout/BaseGame.vue'
+//import BaseGame from './components/Layout/BaseGame.vue'
 //:key="$route"
 export default {
   name: 'App',
   components: {
     // HelloWorld,
-    BaseGame,
+    //BaseGame,
     // GameList
 
   },

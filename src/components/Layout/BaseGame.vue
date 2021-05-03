@@ -7,10 +7,10 @@
   <div class="buttHol" v-if="!phoneMode">
     <router-link to="/gameslist/best_rated" v-on:click="storeString('score')">Score</router-link>
     <router-link to="/gameslist/graphics" v-on:click="storeString('graphics')">Graphics</router-link>
-    <router-link to="/gameslist/story" v-on:click="storeString('story')">Story</router-link>
-    <router-link to="/gameslist/playability" v-on:click="storeString('playability')">Playability</router-link>
-    <router-link to="/gameslist/content" v-on:click="storeString('content')">Content</router-link>
     <router-link to="/gameslist/characters" v-on:click="storeString('characters')">Characters</router-link>
+    <router-link to="/gameslist/story" v-on:click="storeString('story')">Story</router-link>
+    <router-link to="/gameslist/content" v-on:click="storeString('content')">Content</router-link>
+    <router-link to="/gameslist/playability" v-on:click="storeString('playability')">Playability</router-link>
   </div>
   <div v-else :class="hamburger" @click="phoneModeSwitch"><button>Links</button></div>
 

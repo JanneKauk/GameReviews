@@ -39,7 +39,7 @@
               </form>
             </div>
             <div v-if="loggedIn"> 
-              <p>You are logged in as: {{ user }}</p>
+              <p>You are logged in as: {{ userName }}</p>
             </div>
         </dialog>
     </transition>
@@ -72,6 +72,9 @@ export default {
       loggedIn() {
         // return this.isLoggedIn;
         return this.$store.getters.getIsLoggedIn;
+      },
+      userName() {
+        return this.$store.getters.getUser.user;
       }
     },
     methods: {
@@ -95,6 +98,7 @@ export default {
           console.log("toimii");
           console.log(this.$store.getters.getUser)
           const tempUser = this.$store.getters.getUser;
+          console.log(tempUser.user);
           this.isLoggedIn = tempUser.success;
           this.user = tempUser.user;
         },
@@ -109,10 +113,9 @@ export default {
             console.log(JSON.stringify(error));
           }
           console.log("toimii");
-          console.log(this.$store.getters.getUser)
-          const tempUser = this.$store.getters.getUser;
-          this.isLoggedIn = tempUser.success;
-          this.user = tempUser.user;
+          // console.log(this.$store.getters.getUser)
+          // const tempUser = this.$store.getters.getUser;
+          // this.user = tempUser.user;
         },
         loginOrSignup() {
           console.log(this.isLogin);

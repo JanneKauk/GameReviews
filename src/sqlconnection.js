@@ -150,7 +150,7 @@ app.post('/register', function (req, res) {
             con.query('INSERT INTO users (username, email, password) VALUES(?, ?, ?)', [username, email, password], function (err, result) {
                 if (err) throw err;
                 console.log(result);
-                res.send(result);
+                res.send(JSON.stringify({user: result[0].username}));
             })
         });
         }

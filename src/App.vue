@@ -1,15 +1,18 @@
 <template>
   <div id="app">
-    <the-header :login="loginSignupText" @open="showDialog"></the-header>
-<!--    <base-game></base-game>-->
-    <router-view v-slot="slotProps"> 
-      <transition name="route" mode="out-in">
-        <component :is="slotProps.Component" />
-      </transition>
-    </router-view>
-    <login-signup @close="hideDialog" :open="dialogIsVisible">
-      <!-- <button @click="hideDialog">Close dialog</button> -->
-    </login-signup>
+    <section style="heigh: calc(100vh - 20px)">
+      <the-header :login="loginSignupText" @open="showDialog"></the-header>
+  <!--    <base-game></base-game>-->
+      <router-view v-slot="slotProps"> 
+        <transition name="route" mode="out-in">
+          <component :is="slotProps.Component" />
+        </transition>
+      </router-view>
+      <login-signup @close="hideDialog" :open="dialogIsVisible">
+        <!-- <button @click="hideDialog">Close dialog</button> -->
+      </login-signup>
+    </section>
+    <footer></footer>
   </div>
 </template>
 
@@ -55,13 +58,24 @@ export default {
 
 <style>
 
-
+footer {
+  display: block;
+  min-height: calc(100% - 44rem);
+  height: 55px; 
+  background-color: red; 
+  position: relative;
+  margin-top: 16rem;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  /* display: flex; */
+  /* flex-direction: column; */
+  height: 100vh;
+  margin: 0;
 }
 .route-enter-from {
   opacity: 0;

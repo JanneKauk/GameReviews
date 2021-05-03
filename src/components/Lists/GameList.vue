@@ -91,6 +91,7 @@ export default {
   margin-top: 1rem;
   margin-bottom: 1rem;
   min-width: 5rem;
+  cursor: pointer;
 }
 .list-group{
   box-shadow: 0px 0px 4px 0px #989898;

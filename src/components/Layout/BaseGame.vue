@@ -113,7 +113,7 @@ button {
 a {
 
   border-radius: 20px;
-  width: 8rem;
+  width: 7.5rem;
   text-decoration: none;
   padding: 0.75rem 1.5rem;
   background-color: #FF004A;

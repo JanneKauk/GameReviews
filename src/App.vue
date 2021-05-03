@@ -1,17 +1,14 @@
 <template>
   <div id="app">
-    <section style="heigh: calc(100vh - 20px)">
-      <the-header :login="loginSignupText" @open="showDialog"></the-header>
-  <!--    <base-game></base-game>-->
-      <router-view v-slot="slotProps"> 
-        <transition name="route" mode="out-in">
-          <component :is="slotProps.Component" />
-        </transition>
-      </router-view>
-      <login-signup @close="hideDialog" :open="dialogIsVisible">
-        <!-- <button @click="hideDialog">Close dialog</button> -->
-      </login-signup>
-    </section>
+    <the-header :login="loginSignupText" @open="showDialog"></the-header>
+    <router-view v-slot="slotProps"> 
+      <transition name="route" mode="out-in">
+        <component :is="slotProps.Component" />
+      </transition>
+    </router-view>
+    <login-signup @close="hideDialog" :open="dialogIsVisible">
+      <!-- <button @click="hideDialog">Close dialog</button> -->
+    </login-signup>
     <footer></footer>
   </div>
 </template>
@@ -58,13 +55,26 @@ export default {
 
 <style>
 
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 footer {
-  display: block;
-  min-height: calc(100% - 44rem);
-  height: 55px; 
+   /* display: flex; */
+  /*min-height: calc(100% - 1);
+  height: 55px; */
   background-color: red; 
-  position: relative;
-  margin-top: 16rem;
+  position: relative; 
+  padding: 3em;
+  margin-top: auto;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -72,10 +82,14 @@ footer {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* display: flex; */
+  display: flex;
   /* flex-direction: column; */
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+  /* width: 100%;*/
+  /* display: flex; */
+  flex-direction: column;
+
 }
 .route-enter-from {
   opacity: 0;
@@ -99,9 +113,6 @@ footer {
 .route-leave-from {
   opacity: 1;
   transform: translateX(0);
-}
-body{
-  padding-bottom: 2rem;
 }
 @keyframes modal {
   from {

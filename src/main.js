@@ -132,10 +132,15 @@ const store = createStore( {
                 story: payload.story,
                 content: payload.content,
                 graphics: payload.graphics,
-                characters: payload.characters
+                characters: payload.characters,
+                userID: context.getters.getUser.userID,
+                gameID: context.getters.getSingleGame[0].id
+
             }).then(res => {
+                console.log("return from POST")
                 console.log(res.data)
             }).catch((error) => {
+                console.log('error??')
                 console.log(error.res);
             })
         }

@@ -9,6 +9,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 const cors = require('cors');
 
+const { body, validationResult } = require('express-validator');
+
 var con = mysql.createConnection({
     host: "mysql.metropolia.fi",
     user: "jannkauk",
@@ -36,27 +38,67 @@ app.get('/games', function (req, res) {
         res.send(result);
     });
 });
-app.get('/addreview', function(req){
-    let q = url.parse(req.url, true).query;
-    let gameId = q.gameid;
-    let uID = q.userID;
-    let str = q.review;
-    let g = q.graphics;
-    let c = q.characters;
-    let s = q.story;
-    let co = q.content;
-    let p = q.playability;
-    con.query("INSERT INTO reviews (reviews.`game-id`, reviews.`user-id`, reviewtext, graphics, characters, story, content, playability) values ("+gameId+", "+uID+", "+str+", "+g+", "+c+", "+s+", "+co+", "+p+");")
-    con.query("UPDATE games SET games.graphics = ROUND((SELECT AVG(reviews.graphics) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-        "games.characters = ROUND((SELECT AVG(reviews.characters) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-        "games.story = ROUND((SELECT AVG(reviews.story) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-        "games.content = ROUND((SELECT AVG(reviews.content) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-        "games.playability = ROUND((SELECT AVG(reviews.playability) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
-        "games.score = ROUND(((games.graphics + games.characters + games.story + games.content + games.playability)/5),1);\n", function(err){
-        if (err) throw err;
-        //console.log("Update tables: "+result)
-    });
+app.get('/addreview', (req) => {
+        let q = url.parse(req.url, true).query;
+        let gameId = q.gameid;
+        let uID = q.userID;
+        let str = q.review;
+        let g = q.graphics;
+        let c = q.characters;
+        let s = q.story;
+        let co = q.content;
+        let p = q.playability;
+        con.query("INSERT INTO reviews (reviews.`game-id`, reviews.`user-id`, reviewtext, graphics, characters, story, content, playability) values ("+gameId+", "+uID+", "+str+", "+g+", "+c+", "+s+", "+co+", "+p+");")
+        con.query("UPDATE games SET games.graphics = ROUND((SELECT AVG(reviews.graphics) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.characters = ROUND((SELECT AVG(reviews.characters) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.story = ROUND((SELECT AVG(reviews.story) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.content = ROUND((SELECT AVG(reviews.content) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.playability = ROUND((SELECT AVG(reviews.playability) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.score = ROUND(((games.graphics + games.characters + games.story + games.content + games.playability)/5),1);\n", function(err){
+            if (err) throw err;
+            //console.log("Update tables: "+result)
+        });
 })
+
+app.post('/addreview',
+    body('userID').isInt( {min: 1} ),
+    body('gameID').isInt({min: 1}),
+    body('graphics').isInt({ min: 1 }),
+    body('content').isInt({ min: 1 }),
+    body('story').isInt({min: 1}),
+    body('characters').isInt({min: 1}),
+    body('playability').isInt({min: 1}),
+
+
+    (req, res) => {
+        console.log("after validation");
+        console.log(req.body);
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            console.log("error?");
+            return res.status(400).json({errors: errors.array()});
+        }
+        console.log("before sql");
+        con.query("INSERT INTO reviews (`game-id`, `user-id`, title, reviewtext, graphics, characters, story, content, playability) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.gameID, req.body.userID, req.body.title, req.body.review, req.body.graphics, req.body.characters, req.body.story, req.body.content, req.body.playability], (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            console.log('Success???');
+            
+        })
+        con.query("UPDATE games SET games.graphics = ROUND((SELECT AVG(reviews.graphics) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.characters = ROUND((SELECT AVG(reviews.characters) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.story = ROUND((SELECT AVG(reviews.story) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.content = ROUND((SELECT AVG(reviews.content) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.playability = ROUND((SELECT AVG(reviews.playability) FROM reviews WHERE reviews.`game-id` = id),1),\n" +
+            "games.score = ROUND(((games.graphics + games.characters + games.story + games.content + games.playability)/5),1);\n", function (err) {
+                if (err) throw err;
+                //console.log("Update tables: "+result)
+            });
+        console.log(req.body);
+        res.send('success');
+
+})
+
 app.get('/gamereviews', function (req, res) {
     let q = url.parse(req.url, true).query;
     let str = q.sortby;
@@ -126,7 +168,7 @@ app.post('/login', function(req, res) {
                 if(compResult === true) {
 
                     console.log(compResult);
-                    res.send(JSON.stringify({success: compResult, user: result[0].username}));
+                    res.send(JSON.stringify({success: compResult, user: result[0].username, userID: result[0].id}));
                 }
             })
         } else {

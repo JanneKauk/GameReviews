@@ -71,7 +71,7 @@ footer {
    /* display: flex; */
   /*min-height: calc(100% - 1);
   height: 55px; */
-  background-color: red; 
+  background-color: #ED5565;
   position: relative; 
   padding: 3em;
   margin-top: auto;

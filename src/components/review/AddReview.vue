@@ -15,16 +15,17 @@
                     </div>
                   <section class="form-section">
                         <div class="form-div">
-                            <input placeholder="The header for your review." id="title" name="title" v-model.trim="title" />
+                            <input placeholder="The header for your review." :class="isInvalid" id="title" name="title" v-model.trim="title" />
                         </div>
                         <div class="form-div">
-                            <textarea placeholder="Write your thoughts on the game here." id="review" name="review" rows="5" v-model.trim="review">
+                            <textarea placeholder="Write your thoughts on the game here." :class="isInvalid" id="review" name="review" rows="5" v-model.trim="review">
 
                             </textarea>
                         </div>
                     </section>
                     <button type="submit">Submit Review</button>
                     <p v-if="!isValid" class="invalid">Make sure to not leave anything empty</p>
+                    <p v-if="failed" class="invalid">Please log in to submit a review</p>
                     <slot></slot>
                 </form>
             </dialog>
@@ -42,9 +43,6 @@ export default {
     },
     data() {
         return {
-            storyRating: 0,
-            storyArray: [1, 2, 3, 4, 5],
-            storyLabel: {first: '', second: '', third: '', fourth: '', fifth: ''},
             title: '',
             review: '',
             graphics: null,
@@ -53,11 +51,19 @@ export default {
             content: null,
             playability: null,
             isValid: true,
+            failed: false
         };
     },
     computed: {
         storyComputed() {
             return this.storyLabel;
+        },
+        isInvalid() {
+             if(!this.isValid) {
+                 return 'invalidinput';
+             }else {
+                 return '';
+             }
         }
     },
     methods: {
@@ -90,6 +96,7 @@ export default {
             }
         },
         async addReview() {
+            this.failed = false;
             this.isValid = true;
             if(this.playability === null || this.story === null || this.content === null ||
                 this.characters === null ||this.graphics === null || this.title === '' || this.review === '') {
@@ -109,7 +116,12 @@ export default {
                 graphics: this.graphics,
                 characters: this.characters
             }); 
+            this.failed = false;
+            this.$emit('close');
+            this.title = '';
+            this.review = '';
             } catch (error) {
+                this.failed = true;
                 console.log(JSON.stringify(error));
             }
             
@@ -124,6 +136,10 @@ export default {
 
 .invalid{
     color: red;
+}
+
+.invalidinput {
+    border-color: red;
 }
 /*.storyStar {
  visibility: hidden;
@@ -170,9 +186,14 @@ label {
     display: flex;
     width: 100%;
     font: inherit;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 0.15rem;
 } 
+.form-div input:focus,
+.form-div textarea:focus {
+    border-color: 1px solid black;
+    outline: none;
+}
 
 .form-div {
   /*  display: flex;*/

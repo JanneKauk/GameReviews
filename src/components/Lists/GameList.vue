@@ -1,8 +1,8 @@
 <template >
-  <div v-if="checkIfReady">
+  <div class="gamelist-container" v-if="checkIfReady">
     <div class="container">
       <ul class="list-group">
-        <GameListElem v-for="index in listLength" :key="index" :l-index="calcIndex(index)"></GameListElem>
+          <GameListElem v-for="index in listLength" :key="index" :l-index="calcIndex(index)"></GameListElem>
         <nav aria-label="Page navigation example" class="paginationholder">
           <ul class="pagination" id="pages">
             <li class="page-item"><a class="page-link" v-on:click="updatePage(-1)">Previous</a></li>
@@ -105,4 +105,10 @@ export default {
   box-shadow: 0px 0px 4px 0px #989898;
   margin-top: 2rem;
 }
+
+.gamelist-container {
+  margin: 0 0 2.5rem 0;
+}
+
+
 </style>

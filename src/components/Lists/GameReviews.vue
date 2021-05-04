@@ -107,4 +107,9 @@ ul {
   margin-bottom: 1rem;
   color: #DE004A;
 }
+
+.container {
+margin-bottom: 2.5rem;
+}
+
 </style>

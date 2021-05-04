@@ -12,11 +12,16 @@
         <img style="max-height: 150px" alt="" :src="'/img/'+games[getIndex].image">
       </div>
     </router-link>
-
   </li>
 </template>
 
 <script>
+/**
+ * @vue-prop {Number} lIndex - List Index value
+ * @vue-computed {Object} games - returns games json from vuex with getters
+ * @vue-computed {Number} getIndex - returns lIndex, used to search for the game with that index from the games list
+ * @vue-methods storeName(str) - launches an sql search in vuex for a single game with name str
+ */
 export default {
   name: 'GameListElem',
   props:{

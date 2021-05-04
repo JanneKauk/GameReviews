@@ -13,20 +13,21 @@
         <img style="max-height: 100px" alt="" :src="'/img/'+image">
       </div>
     </router-link>
-
   </li>
 </template>
 
 <script>
+/**
+ * @vue-props {Number} id - game id
+ * @vue-props {String} name - game name
+ * @vue-props {String} platforms - plaforms the game is on
+ * @vue-props {Number} score - Overall score of the game
+ * @vue-props {String} image - game cover image
+ * @vue-methods storeName(str) - sets routerlink click path
+ */
 export default {
   name: 'SearchedElement',
   props: ['id', 'name', 'platforms', 'score', 'image'],
-  computed:{
-    games(){
-      return this.$store.getters.getSearchResult;
-    },
-
-  },
   methods:{
     storeName(str) {
       this.$store.dispatch("querySingleGameAction", str)

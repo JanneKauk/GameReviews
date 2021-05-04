@@ -83,7 +83,7 @@ app.post('/addreview',
             if(results.length !== 0) {
                 console.log("Review exists");
                 res.send('Review already exists');
-            }else {
+            }else{
                 console.log('välivaihe');
 
                 con.query("INSERT INTO reviews (`game-id`, `user-id`, title, reviewtext, graphics, characters, story, content, playability) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.gameID, req.body.userID, req.body.title, req.body.review, req.body.graphics, req.body.characters, req.body.story, req.body.content, req.body.playability], (err, result) => {
@@ -136,7 +136,7 @@ con.query('Select * from users', function (err, result) {
     console.log(result);
 });
 app.post('/register', function (req, res) {
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase();
     const username = req.body.username;
     console.log(email);
     console.log(username);
@@ -159,7 +159,7 @@ app.post('/register', function (req, res) {
 });
 
 app.post('/login', function(req, res) {
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase();
     const password = req.body.password;
     console.log(email);
     console.log(password);

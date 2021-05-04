@@ -184,14 +184,12 @@ const store = createStore( {
 
 import TheHeader from "./components/Layout/TheHeader.vue";
 import BaseCard from './components/ui/BaseCard.vue';
-// import TheFooter from './components/Layout/TheFooter.vue';
 
 const app = createApp(App);
 app.use(store);
 app.component('the-header', TheHeader);
 app.component('login-signup', LoginSignup);
 app.component('base-card', BaseCard);
-// app.component('the-footer', TheFooter);
 
 app.use(router);
 app.mount("#app");

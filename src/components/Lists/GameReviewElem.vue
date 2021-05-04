@@ -17,6 +17,11 @@
 </template>
 
 <script>
+/**
+ * @vue-prop {Number} lIndex - List Index value
+ * @vue-computed {Object} reviews - returns reviews json from vuex with getters
+ * @vue-computed {Number} getIndex - returns lIndex, used to search for the review with that index from the review list
+ */
 import BaseCard from '@/components/ui/BaseCard';
 export default {
   name: 'GameReviewElem',
@@ -46,7 +51,6 @@ export default {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-
 .Categories{
   display: inline-block;
   min-width: 130px;
@@ -78,7 +82,6 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 body {
   background: #eee;
   display: flex;
@@ -86,12 +89,10 @@ body {
   align-items: center;
   height: 100vh;
 }
-
 * {
   position: relative;
   box-sizing: border-box;
 }
-
 .page-link{
   color:#394fffde;
 }
@@ -99,5 +100,4 @@ ul{
   list-style: none;
   text-align: left;
 }
-
 </style>

@@ -21,6 +21,20 @@ export default {
   components:{
     GameListElem,
   },
+  /**
+   * @vue-data {Number} page - Current page
+   * @vue-data {Number} maxPages - How many pages there are
+   * @vue-data {Number} listLength - How many items the list displays on each page
+   * @vue-data {Number} finalListLength - How many items the last page contains
+   * @vue-data {Boolean} initialized - Has the initialization been completed
+   * @vue-computed {Number} pageNum - returns what page we are on
+   * @vue-computed {Number} getIndex - returns the index of the current iteration from the GameListElem loop
+   * @vue-computed {Boolean} checkIfReady - returns ready and runs initialization if game list has been received from the server
+   * @vue-computed {Object} getList - returns game list from a vuex variable in main.js with getters
+   * @vue-method init - calculates maxPages, finalListLength and sets initialized to true
+   * @vue-method updatePage(mod) - changes page based on next and previous buttons and changes listLenght to finalListLength if on last page
+   * @vue-method calcIndex(index) - takes iteration and changes to real index of the game list, used to pass the true index to GameListElem
+   */
   data() {
     return{
       page: 1,
@@ -39,7 +53,6 @@ export default {
     },
     checkIfReady(){
       let r = this.$store.getters.gamesReady;
-      console.log("Is it ready?: "+r);
       if(r && !this.initialized) this.init();
       return r;
     },
@@ -49,7 +62,6 @@ export default {
   },
   methods:{
     init(){
-      console.log(this.$store.getters.games)
       let i = this.getList.length;
       this.finalListLength = i % 5
       if(i % 5 != 0){
@@ -58,7 +70,6 @@ export default {
       else{
         this.maxPages = Math.floor(i / 5)
       }
-      console.log("page num: "+this.pageNum+", max pages: "+this.maxPages+", last page list length: "+this.finalListLength)
       this.initialized = true;
     },
     updatePage(mod){
@@ -66,16 +77,13 @@ export default {
         this.page = this.pageNum + 1*mod;
         if(this.pageNum < 1) this.page = 1;
         if(this.pageNum > this.maxPages) this.page = this.maxPages;
-
         if(this.pageNum == this.maxPages){
           this.listLength = this.finalListLength
         }else this.listLength = 5
-        console.log("Page num: "+this.pageNum);
       }
     },
     calcIndex(index){
       let trueIndex = ((this.pageNum-1)*5)+index-1;
-      console.log("True index: "+trueIndex)//range goes 1 over the max
       return trueIndex;
     }
   }

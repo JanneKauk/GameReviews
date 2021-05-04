@@ -15,26 +15,31 @@
     </div>
 </template>
 
-
 <script>
+/**
+ * @vue-props {String} category - category name
+ * @vue-props {Number} rating - rating value
+ * @vue-props {String} id - element id
+ * @vue-events getValue(event) - sends a click event to parent with target value and category name
+ * @vue-computed {String} cat - returns category
+ */
 export default {
-    props: ['category', 'rating', 'id'],
-    
-    data() {
-        return {
-
-        };
-    },
-    methods: {
-        getValue(event) {
-            this.$emit('click', event.target.value, this.category);
-        },
-    },
-    computed: {
-      cat() {
-        return this.category;
+  props: ['category', 'rating', 'id'],
+  emits: ['click'],
+  data() {
+      return {
+      };
+  },
+  methods: {
+      getValue(event) {
+          this.$emit('click', event.target.value, this.category);
       },
-    }
+  },
+  computed: {
+    cat() {
+      return this.category;
+    },
+  }
 }
 </script>
 
@@ -44,12 +49,6 @@ export default {
 .emitDiv {
     visibility: hidden;
     height: 0;
-}
-
-.rating {
-    /*float:left;*/
-  /*text-align: center;*/
-
 }
 div span{
   font-size: 22px;
@@ -75,9 +74,7 @@ div span{
   position:absolute;
   top:-9999px;
 }
-
 .rating:not(:checked) > label {
-    /*float:right;*/
     width:1em;
     padding:0 .1em;
     overflow:hidden;
@@ -88,11 +85,9 @@ div span{
     color:#ddd;
     text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
 }
-
 .rating:not(:checked) > label:before {
     content: '★ ';
 }
-
 .rating > input:checked ~ label {
     color: #f70;
     text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
@@ -105,13 +100,11 @@ div span{
   transform: scale(-1, 1);
   line-height: 0;
 }
-
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label {
     color: gold;
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
 }
-
 .rating > input:checked + label:hover,
 .rating > input:checked + label:hover ~ label,
 .rating > input:checked ~ label:hover,
@@ -120,7 +113,6 @@ div span{
     color: #ea0;
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
 }
-
 .rating > label:active {
     position:relative;
     top:2px;

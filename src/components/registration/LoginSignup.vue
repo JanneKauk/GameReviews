@@ -19,6 +19,7 @@
                   </div>
                   <button type="submit">Login</button>
                   <slot></slot>
+                  <p v-if="!validForm">Password has to be 5 characters or more</p>
               </form>
               </div>
             <div v-if="!isLogin && !loggedIn">
@@ -40,6 +41,7 @@
             </div>
             <div v-if="loggedIn"> 
               <p>You are logged in as: {{ userName }}</p>
+              <button @click="logout">Logout</button>
             </div>
         </dialog>
     </transition>
@@ -47,6 +49,24 @@
 </template>
 
 <script>
+/**
+ * @vue-data {String} email - current email value
+ * @vue-data {String} username - current username value
+ * @vue-data {String} password - current password value
+ * @vue-data {Boolean} validForm - checks if form is valid
+ * @vue-data {Boolean} isLogin - checks if mode is login. If it isn't then mode is sign up
+ * @vue-data {Boolean} isLoggedIn - checks if user is logged in.
+ * @vue-data {String} user - name of the current user, if logged in.
+ * @vue-prop {String} open - 
+ * @vue-emits {Event} close - emits a click event that closes dialog.
+ * @vue-computed {String} headerText - if mode is login then has String Login else has String Signup
+ * @vue-computed {Boolean} loggedIn - uses vuex getter to get boolean if user is logged in.
+ * @vue-computed {String} userName . uses vuex getter to get users name.
+ * @vue-event {} login - async method that dispatches an async action that makes a post request to login user.
+ * @vue-event {} signup - async method that dispatches an async action that makes a post request to register user.
+ * @vue-event {Boolean} loginOrSignup - flips isLogin Boolean value.
+ * @vue-event {} logout - logs out user by setting everything back to default
+ */
 export default {
     props: ['open'],
     emits: ['close'],
@@ -70,7 +90,6 @@ export default {
         }
       },
       loggedIn() {
-        // return this.isLoggedIn;
         return this.$store.getters.getIsLoggedIn;
       },
       userName() {
@@ -95,10 +114,7 @@ export default {
           } catch (error) {
             console.log(JSON.stringify(error));
           }
-          console.log("toimii");
-          console.log(this.$store.getters.getUser)
           const tempUser = this.$store.getters.getUser;
-          console.log(tempUser.user);
           this.isLoggedIn = tempUser.success;
           this.user = tempUser.user;
         },
@@ -112,15 +128,19 @@ export default {
           } catch (error) {
             console.log(JSON.stringify(error));
           }
-          console.log("toimii");
-          // console.log(this.$store.getters.getUser)
-          // const tempUser = this.$store.getters.getUser;
-          // this.user = tempUser.user;
         },
         loginOrSignup() {
-          console.log(this.isLogin);
           this.isLogin = !this.isLogin;
-          console.log(this.isLogin);
+        },
+        logout() {
+          this.$store.dispatch('logoutUserAction');
+          this.isLogin = !this.isLogin;
+          this.isLoggedIn = false;
+          this.user = '';
+          this.username = '';
+          this.password = '';
+          this.email = '';
+          this.$emit('close');
         }
         
       }

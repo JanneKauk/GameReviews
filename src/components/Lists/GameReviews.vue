@@ -101,4 +101,8 @@ ul {
   color: #DE004A;
 }
 
+.container {
+margin-bottom: 2.5rem;
+}
+
 </style>

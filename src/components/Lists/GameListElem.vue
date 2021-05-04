@@ -1,19 +1,19 @@
 <template>
-  <li class="list-group-item d-flex justify-content-between">
-    <router-link style="text-decoration: none; color: #323232; width: 100%" :to="'/gamedetails/' + games[getIndex].name" @click="storeName(games[getIndex].name)">
-      <div style="display: flex">
-        <div class="container">
-          <h2 style="text-align: left">
-            {{getIndex+1+": "}}{{ games[getIndex].name }}<br>
-            Platforms: {{ games[getIndex].platforms }}<br>
-          </h2>
-          <span style="float: left" class="Stars" :style="`--rating: ${games[getIndex].score}`"><span>{{" "+games[getIndex].score}}</span></span>
+    <li class="list-group-item d-flex justify-content-between">
+      <router-link style="text-decoration: none; color: #323232; width: 100%" :to="'/gamedetails/' + games[getIndex].name" @click="storeName(games[getIndex].name)">
+        <div style="display: flex">
+          <div class="container">
+            <h2 style="text-align: left">
+              {{getIndex+1+": "}}{{ games[getIndex].name }}<br>
+              Platforms: {{ games[getIndex].platforms }}<br>
+            </h2>
+            <span style="float: left" class="Stars" :style="`--rating: ${games[getIndex].score}`"><span>{{" "+games[getIndex].score}}</span></span>
+          </div>
+          <img style="max-height: 150px" alt="" :src="'/img/'+games[getIndex].image">
         </div>
-        <img style="max-height: 150px" alt="" :src="'/img/'+games[getIndex].image">
-      </div>
-    </router-link>
+      </router-link>
 
-  </li>
+    </li>
 </template>
 
 <script>
@@ -87,5 +87,6 @@ body {
 .page-link{
   color:#394fffde;
 }
+
 
 </style>

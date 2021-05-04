@@ -63,7 +63,12 @@ const store = createStore( {
         },
         searchListReady(state, payload) {
             state.searchListReady = payload;
-        }
+        },
+        logoutUserMutation(state) {
+            state.user = null;
+            state.isLoggedIn = false;
+        },
+
 
     },
     actions: {
@@ -146,7 +151,10 @@ const store = createStore( {
                 console.log('error??')
                 console.log(error.res);
             })
-        }
+        },
+        async logoutUserAction(context) {
+            context.commit('logoutUserMutation');
+        },
     },
     getters: {
         games (state) {

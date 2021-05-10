@@ -37,18 +37,24 @@ export default {
     },
     hideDialog() {
       this.dialogIsVisible = false;
+    },
+    async auth() {
+     await this.$store.dispatch('isLoggedInUser');
     }
   },
   computed: {
     loginSignupText() {
       let loggedIn = this.$store.getters.getUser;
       if(loggedIn) {
-        return '' + loggedIn.user;
+        return '' + loggedIn.username;
       } else {
         return 'Login / Sign up';
       }
     }
-  }
+  },
+  created: function() {
+    this.auth();
+  },
 
 }
 </script>

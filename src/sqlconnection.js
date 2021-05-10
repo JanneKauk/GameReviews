@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const bodyParser = require('body-parser');
@@ -20,7 +23,25 @@ var con = mysql.createConnection({
     database: process.env.SQLDB
 });
 
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:8080"],
+    methods: ["GET", "POST"],
+    credentials: true
+    }
+));
+
+app.use(cookieParser());
+
+app.use(session({
+    key: "userId",
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 1000 * 60 * 10,
+    }
+}))
+
 /**
  * Try connecting
  */
@@ -32,6 +53,7 @@ con.connect(function(err) {
     });
 });
 var url = require('url');
+const { env } = require('process');
 /**
  * Query for a gamelist ordered by str category
  */
@@ -119,6 +141,15 @@ app.post('/register', function (req, res) {
     });
 });
 
+app.get('/login', (req, res) => {
+    console.log(req.session.user);
+    if (req.session.user) {
+        res.send({loggedIn: true, user: req.session.user})
+    } else {
+        res.send({loggedIn: false});
+    }
+})
+
 app.post('/login', function(req, res) {
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
@@ -127,7 +158,10 @@ app.post('/login', function(req, res) {
         if(result.length > 0) {
             bcrypt.compare(password, result[0].password, function (err, compResult) {
                 if(compResult === true) {
-                    res.send(JSON.stringify({success: compResult, user: result[0].username, userID: result[0].id}));
+                    console.log(result);
+                    req.session.user = result;
+                    console.log(req.session.user)
+                    res.send(JSON.stringify({success: compResult, username: result[0].username, userID: result[0].id}));
                 }
             })
         } else {

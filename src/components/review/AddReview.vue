@@ -34,6 +34,22 @@
 </template>
 
 <script>
+/**
+ * @vue-data {String} title - current value of the title input
+ * @vue-data {String} review - current value of review textarea
+ * @vue-data {Number} graphics - current star-review value for category graphics
+ * @vue-data {Number} characters - current star-review value for category characters
+ * @vue-data {Number} story - current star-review value for category story
+ * @vue-data {Number} content - current star-review value for category content
+ * @vue-data {Number} playability - current star-review value for category playability
+ * @vue-data {Boolean} isValid - true if input and textarea are valid
+ * @vue-data {Boolean} failed - true if posting a review has not failed
+ * @vue-prop {String} open - 
+ * @vue-emits {Event} close - emits a click event that closes dialog.
+ * @vue-computed {Boolean} isInvalid - adds or removes invalidinput class to input and textarea
+ * @vue-event {} starValue - Gets the emitted values from StarRating component and checks which category it belongs to
+ * @vue-event {} addReview - async method that dispatches an async action that makes a post request to addreview.
+ */
 import StarRating from '../rating/StarRating.vue';
 export default {
     props: ['open'],
@@ -55,9 +71,7 @@ export default {
         };
     },
     computed: {
-        storyComputed() {
-            return this.storyLabel;
-        },
+
         isInvalid() {
              if(!this.isValid) {
                  return 'invalidinput';
@@ -68,7 +82,6 @@ export default {
     },
     methods: {
         starValue(value, value2) {
-            console.log("" + value + " " + value2);
             switch(value2.toLowerCase()) {
                 case 'graphics':
                     this.graphics = value;
@@ -103,8 +116,6 @@ export default {
                     this.isValid = false;
                     return;
                 }
-            console.log(this.playability + " " + this.story + " " + this.content + " " + this.graphics + " " + this.characters);
-            console.log("title: " + this.title + "\nreview: " + this.review);
 
             try {
             await this.$store.dispatch('addReview', {

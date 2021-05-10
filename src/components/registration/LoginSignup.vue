@@ -19,7 +19,7 @@
                   </div>
                   <button type="submit">Login</button>
                   <slot></slot>
-                  <p v-if="!validForm">Password has to be 5 characters or more</p>
+                  <p v-if="!validForm">Email or password wrong</p>
               </form>
               </div>
             <div v-if="!isLogin && !loggedIn">
@@ -37,6 +37,7 @@
                       <input type="password" name="password" id="password" v-model.trim="password" />
                   </div>
                   <button type="submit">Signup</button>
+                  <p v-if="!validForm">Password has to be 5 characters or more</p>
               </form>
             </div>
             <div v-if="loggedIn"> 
@@ -111,15 +112,31 @@ export default {
             email: this.email,
             password: this.password
           }); 
+          const tempUser = this.$store.getters.getUser;
+          if(tempUser !== 'Failed' && tempUser !== null) {
+            console.log('tempUser login');
+            console.log(tempUser);
+            this.isLoggedIn = tempUser.success;
+            this.user = tempUser.user;
+            
+          }else {
+            this.validForm = false;
+          }
           } catch (error) {
             console.log(JSON.stringify(error));
           }
-          const tempUser = this.$store.getters.getUser;
-          this.isLoggedIn = tempUser.success;
-          this.user = tempUser.user;
+          this.email = '';
+          this.password = '';
+          
         },
         async signup() {
+          this.validForm = true;
+        if(this.email === '' || !this.email.includes('@') || this.password.length < 5 || this.username === '') {
+          this.validForm = false;
+          return;
+        }
           try {
+            console.log("email: " + this.email + " username " + this.username + " password: " + this.password);
           await this.$store.dispatch('signupUser', {
             email: this.email,
             username: this.username,
@@ -128,6 +145,9 @@ export default {
           } catch (error) {
             console.log(JSON.stringify(error));
           }
+          this.email = '';
+          this.username = '';
+          this.password = '';
         },
         loginOrSignup() {
           this.isLogin = !this.isLogin;

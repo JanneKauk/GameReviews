@@ -25,7 +25,7 @@ var con = mysql.createConnection({
 
 app.use(cors({
     origin: ["http://localhost:8080"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE"],
     credentials: true
     }
 ));
@@ -38,7 +38,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        expires: 1000 * 60 * 10,
+        expires: 1000 * 60 * 3,
     }
 }))
 
@@ -124,33 +124,49 @@ app.get('/gamedetails', function (req, res) {
     });
 });
 
-app.post('/register', function (req, res) {
+app.post('/register',
+    body('email').isEmail(),
+    body('username').isString(),
+    body('password').isLength({min: 5}),
+    function (req, res) {
     const email = req.body.email.toLowerCase();
     const username = req.body.username;
     con.query('SELECT * FROM users WHERE email = ?', email, function (err, existresult) {
         if(err) throw err;
         if(existresult.length <= 0) {
         bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-            const password = hash;
-            con.query('INSERT INTO users (username, email, password) VALUES(?, ?, ?)', [username, email, password], function (err, result) {
+            const hashedPassword = hash;
+            console.log(username);
+            console.log(req.body.username);
+            con.query('INSERT INTO users (username, email, password) VALUES(?, ?, ?)', [req.body.username, req.body.email, hashedPassword], function (err) {
                 if (err) throw err;
-                res.send(JSON.stringify({user: result[0].username}));
+                res.send(JSON.stringify({user: username}));
             })
         });
+        } else {
+            res.send('Failed');
         }
     });
 });
 
+con.query("SELECT * FROM users", (err, result) => {
+    console.log(result);
+})
+
 app.get('/login', (req, res) => {
     console.log(req.session.user);
+    console.log('login getter above');
     if (req.session.user) {
+        console.log('true');
         res.send({loggedIn: true, user: req.session.user})
     } else {
+        console.log('false');
         res.send({loggedIn: false});
     }
 })
 
-app.post('/login', function(req, res) {
+app.post('/login',
+    function(req, res) {
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
     con.query('SELECT * FROM users WHERE email = ?', email, function(err, result) {
@@ -158,6 +174,7 @@ app.post('/login', function(req, res) {
         if(result.length > 0) {
             bcrypt.compare(password, result[0].password, function (err, compResult) {
                 if(compResult === true) {
+                    console.log('compresult true');
                     console.log(result);
                     req.session.user = result;
                     console.log(req.session.user)
@@ -178,6 +195,22 @@ app.post('/search', function(req, res) {
         if(err) throw err;
         res.send(result);
     })
+})
+
+app.delete('/logout', (req, res) => {
+    // req.logout();
+    // req.clearCookie();
+    req.session.destroy(err => {
+        if(req.session) {
+            if (err) {
+                res.status(400).send('log out failed')
+            } else {
+                res.send('log out successful')
+            }
+        } else {
+            res.end();
+        }
+    });
 })
 
 var server = app.listen(8081, function () {

@@ -96,11 +96,13 @@ const store = createStore( {
         authenticatedUser(state, payload) {
             console.log("first login");
             console.log(payload);
-            state.user = payload;
-            state.isLoggedIn = true;
+            if(payload !== 'Failed') {
+                state.user = payload;
+                state.isLoggedIn = true;
+            }
         },
         isAuth(state, payload) {
-            if(payload.user[0] !== undefined) {
+            if(payload.user) {
                 state.user = payload.user[0];
                 state.isLoggedIn = true;
             }
@@ -211,10 +213,13 @@ const store = createStore( {
          */
         async signupUser(context, payload) {
             console.log("SIGNUPUSER");
+            console.log(payload);
             await instance.post('/register', { email: payload.email, username: payload.username, password: payload.password }).then(res => {
 
                 console.log(res.data);
-                context.dispatch('loginUser', {email: payload.email, password: payload.password});
+                if(res.data !== 'Failed') {
+                    context.dispatch('loginUser', {email: payload.email, password: payload.password});
+                }
                 // context.commit('authenticatedUser', res.data)
             }).catch((error) => {
                 console.log("error");
@@ -270,6 +275,12 @@ const store = createStore( {
          * @param {*} context 
          */
         async logoutUserAction(context) {
+            await instance.delete('/logout').then(res =>  {
+                console.log("logout successful");
+                console.log(res);
+            }).catch((error) => {
+                throw error;
+            })
             context.commit('logoutUserMutation');
         },
     },

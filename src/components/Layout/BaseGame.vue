@@ -64,9 +64,11 @@ export default {
 <style scoped>
 .sHol{
   flex: 33%;
+  display: flex;
+  align-items: center;
 }
 .searchbarholder{
-  margin: 15% 2rem 15% 3rem;
+  margin: 0 2rem 0 3rem;
   float: left;
 }
 .buttHol{
@@ -84,11 +86,9 @@ nav {
   /*gap: 23.5rem;*/
   /* box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.26); */
 }
-
 select {
   margin-left: 1rem;
 }
-
 input {
   display:flex;
   text-align: center;
@@ -97,7 +97,6 @@ input {
   margin-left: auto;
   border-radius: 10px;
 }
-
 button {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
@@ -109,9 +108,7 @@ button {
   margin-right: 0.5rem;
   display: inline-block;
 }
-
 a {
-
   border-radius: 20px;
   width: 7.5rem;
   text-decoration: none;

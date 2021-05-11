@@ -139,6 +139,8 @@ app.post('/register',
         if(existresult.length <= 0) {
         bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
             const hashedPassword = hash;
+            console.log(username);
+            console.log(req.body.username);
             con.query('INSERT INTO users (username, email, password) VALUES(?, ?, ?)', [req.body.username, req.body.email, hashedPassword], function (err) {
                 if (err) throw err;
                 res.send(JSON.stringify({user: username}));
@@ -155,8 +157,9 @@ app.post('/register',
  */
 app.get('/login', (req, res) => {
     if (req.session.user) {
-        res.send({loggedIn: true})
+        res.send({loggedIn: true, user: req.session.user})
     } else {
+        console.log('false');
         res.send({loggedIn: false});
     }
 })
@@ -170,7 +173,10 @@ app.post('/login',
         if(result.length > 0) {
             bcrypt.compare(password, result[0].password, function (err, compResult) {
                 if(compResult === true) {
+                    console.log('compresult true');
+                    console.log(result);
                     req.session.user = result;
+                    console.log(req.session.user)
                     res.send(JSON.stringify({success: compResult, username: result[0].username, userID: result[0].id}));
                 }
             })

@@ -64,6 +64,7 @@ export default {
   emits: ['open'],
   data() {
     return {
+      searchValue: ''
     };
   },
   

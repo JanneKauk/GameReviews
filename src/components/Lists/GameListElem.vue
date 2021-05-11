@@ -88,6 +88,17 @@ body {
   position: relative;
   box-sizing: border-box;
 }
+@media only screen and (max-width: 1260px){
+  *{
+    font-size: 24px;
+  }
+  .Stars{
+    font-size: 24px;
+  }
+  .Stars span{
+    font-size: 24px;
+  }
+}
 
 .page-link{
   color:#394fffde;

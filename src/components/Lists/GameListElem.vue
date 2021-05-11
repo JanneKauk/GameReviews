@@ -9,10 +9,9 @@
             </h2>
             <span style="float: left" class="Stars" :style="`--rating: ${games[getIndex].score}`"><span>{{" "+games[getIndex].score}}</span></span>
           </div>
-          <img style="max-height: 150px" alt="" :src="'/img/'+games[getIndex].image">
+          <img style="max-height: 150px;" alt="" :src="'/img/'+games[getIndex].image">
         </div>
       </router-link>
-
     </li>
 </template>
 

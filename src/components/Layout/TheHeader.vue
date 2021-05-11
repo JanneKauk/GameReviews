@@ -1,16 +1,14 @@
 <template>
   <header>
     <!--/.Navbar-->
-    <nav class="desktopf">
-      <div style="display: flex; align-items: center; width: 100%;">
+    <nav class="desktopfriendly">
         <base-game></base-game>
         <div class="logbutt">
           <button class="loginbutton" @click="$emit('open')">{{ login }}</button>
           <!-- <router-link to="/Login"><h1>{{ login }}</h1></router-link> -->
         </div>
-      </div>
     </nav>
-    <div class="container mobilef">
+    <div class="container mobilefriendly">
       <!-- This checkbox will give us the toggle behavior, it will be hidden, but functional -->
       <input id="toggle" type="checkbox">
 
@@ -99,7 +97,7 @@ export default {
 
 header {
   width: 100%;
-  display: flex;
+  /*display: flex;*/
   align-items: center;
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -136,10 +134,10 @@ header h1 {
   .loginbutton {
     margin: 0;
   }
-  .mobilef{
+  .mobilefriendly{
     visibility: initial;
   }
-  .desktopf{
+  .desktopfriendly{
     visibility: hidden;
     height: 0;
     width: 0;
@@ -336,36 +334,6 @@ header h1 {
     transform: translateY(-50%) scaleY(5);
     transition: 0.5s;
   }
-
-  /* Dummy content */
-  .dummy-content {
-    position: relative;
-    text-align: center;
-    transition: 0.5s;
-  }
-  .dummy-content:before {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    z-index: 2;
-    transition: 0.5s;
-  }
-
-  .circle {
-    display: inline-block;
-    width: 75px;
-    height: 75px;
-    background-color: #EC7263;
-    border-radius: 100%;
-  }
-
-  .text {
-    margin: 15px 0 30px;
-  }
   .text span {
     display: inline-block;
     height: 10px;
@@ -379,47 +347,14 @@ header h1 {
   .text span:last-child {
     width: 80px;
   }
-
-  .square-top {
-    display: inline-block;
-    position: relative;
-    width: 200px;
-    height: 300px;
-    background-color: #FEBE7E;
-    z-index: 1;
-  }
-
-  .square-behind {
-    display: inline-block;
-    position: relative;
-    top: -256px;
-    width: 250px;
-    height: 210px;
-    background-color: #C28683;
-  }
-  .square-behind:before, .square-behind:after {
-    position: absolute;
-    content: "";
-    top: 0;
-    width: 40%;
-    height: 100%;
-  }
-  .square-behind:before {
-    left: 0;
-    background-color: #9D567C;
-  }
-  .square-behind:after {
-    right: 0;
-    background-color: #958C6B;
-  }
 }
 @media only screen and (min-width: 1260px) {
-  .mobilef{
+  .mobilefriendly{
     visibility: hidden;
     height: 0;
     width: 0;
   }
-  .desktopf{
+  .desktopfriendly{
     visibility: initial;
     width: 100%;
     height: 100%;

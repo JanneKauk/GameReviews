@@ -37,6 +37,18 @@
 
 
 <script>
+/**
+ * @vue-data {Boolean} dialogIsVisible - if true dialog is visible
+ * @vue-data {Object} game - JSON object with game data received from the server
+ * @vue-data {Boolean} readyState - if true, load.
+ * @vue-prop {Number} id - Number prop to get the game id from GameList or SearchedGames. 
+ * @vue-computed {date} date - formats the date from released date
+ * @vue-event {} showDialog - shows dialog
+ * @vue-event {} hideDialog - hides dialog
+ * @vue-event {} load - async method that gets all the game data from the server
+ * @vue-event {} created - calls the load method when created.
+ */
+
 import AddReview from '../components/review/AddReview.vue';
 import GameReviews from '../components/Lists/GameReviews.vue';
 export default {
@@ -61,11 +73,8 @@ export default {
     },
     async load(){
       await this.$store.dispatch("querySingleGameAction", this.id)
-      console.log("load"+this.$store.getters.getSingleGame)
       this.game = this.$store.getters.getSingleGame;
       await this.$store.dispatch("sortedReviews", this.gameId);
-      //await this.$store.dispatch
-      console.log("Is it ready?(load): "+this.$store.getters.reviews);
       this.readystate = true;
       this.$store.commit("reviewListReady", true);
     },

@@ -124,6 +124,9 @@ app.get('/gamedetails', function (req, res) {
     });
 });
 
+/* 
+* Registers the user if info is valid
+*/
 app.post('/register',
     body('email').isEmail(),
     body('username').isString(),
@@ -136,8 +139,6 @@ app.post('/register',
         if(existresult.length <= 0) {
         bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
             const hashedPassword = hash;
-            console.log(username);
-            console.log(req.body.username);
             con.query('INSERT INTO users (username, email, password) VALUES(?, ?, ?)', [req.body.username, req.body.email, hashedPassword], function (err) {
                 if (err) throw err;
                 res.send(JSON.stringify({user: username}));
@@ -149,18 +150,13 @@ app.post('/register',
     });
 });
 
-con.query("SELECT * FROM users", (err, result) => {
-    console.log(result);
-})
-
+/**
+ * Logins the user with session and gives a cookie.
+ */
 app.get('/login', (req, res) => {
-    console.log(req.session.user);
-    console.log('login getter above');
     if (req.session.user) {
-        console.log('true');
-        res.send({loggedIn: true, user: req.session.user})
+        res.send({loggedIn: true})
     } else {
-        console.log('false');
         res.send({loggedIn: false});
     }
 })
@@ -174,10 +170,7 @@ app.post('/login',
         if(result.length > 0) {
             bcrypt.compare(password, result[0].password, function (err, compResult) {
                 if(compResult === true) {
-                    console.log('compresult true');
-                    console.log(result);
                     req.session.user = result;
-                    console.log(req.session.user)
                     res.send(JSON.stringify({success: compResult, username: result[0].username, userID: result[0].id}));
                 }
             })
@@ -188,6 +181,9 @@ app.post('/login',
     )
 })
 
+/**
+ * Searches games with the string from searchbar
+ */
 app.post('/search', function(req, res) {
     let q = url.parse(req.url, true).query;
     let str = q.search.toLowerCase();
@@ -197,6 +193,9 @@ app.post('/search', function(req, res) {
     })
 })
 
+/**
+ * Logs out the user and destroys cookie.
+ */
 app.delete('/logout', (req, res) => {
     // req.logout();
     // req.clearCookie();

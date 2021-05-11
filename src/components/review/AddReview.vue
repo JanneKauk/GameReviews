@@ -13,7 +13,7 @@
                       <star-rating @click="starValue" :category="'Playability'" :rating="'rating'"></star-rating>
                       <br>
                     </div>
-                  <section class="form-section">
+                    <section class="form-section">
                         <div class="form-div">
                             <input placeholder="The header for your review." :class="isInvalid" id="title" name="title" v-model.trim="title" />
                         </div>
@@ -85,23 +85,18 @@ export default {
             switch(value2.toLowerCase()) {
                 case 'graphics':
                     this.graphics = value;
-                    // console.log('graphics');
                     break;
                 case 'characters':
                     this.characters = value;
-                    // console.log('characters');
                     break;
                 case 'story':
                     this.story = value;
-                    // console.log('Story');
                     break;
                 case 'content':
                     this.content = value;
-                    // console.log('content');
                     break;
                 case 'playability':
                     this.playability = value;
-                    // console.log('playability');
                     break;
                 default:
                     console.log('default case. Something went wrong');

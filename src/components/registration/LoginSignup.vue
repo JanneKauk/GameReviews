@@ -19,7 +19,7 @@
                   </div>
                   <button type="submit">Login</button>
                   <slot></slot>
-                  <p v-if="!validForm">Email or password wrong</p>
+                  <p v-if="!validForm">{{ loginSuccess }}</p>
               </form>
               </div>
             <div v-if="!isLogin && !loggedIn">
@@ -94,7 +94,14 @@ export default {
         return this.$store.getters.getIsLoggedIn;
       },
       userName() {
-        return this.$store.getters.getUser.user;
+        return this.$store.getters.getUser.username;
+      },
+      loginSuccess() {
+        if(!this.$store.getters.loginSuccess) {
+          return 'Email or password wrong';
+        } else {
+          return 't';
+        }
       }
     },
     methods: {
@@ -104,8 +111,6 @@ export default {
           this.validForm = false;
           return;
         }
-        console.log(this.email);
-        console.log(this.password);
 
         try {
           await this.$store.dispatch('loginUser', {
@@ -114,8 +119,6 @@ export default {
           }); 
           const tempUser = this.$store.getters.getUser;
           if(tempUser !== 'Failed' && tempUser !== null) {
-            console.log('tempUser login');
-            console.log(tempUser);
             this.isLoggedIn = tempUser.success;
             this.user = tempUser.user;
             
@@ -136,7 +139,6 @@ export default {
           return;
         }
           try {
-            console.log("email: " + this.email + " username " + this.username + " password: " + this.password);
           await this.$store.dispatch('signupUser', {
             email: this.email,
             username: this.username,

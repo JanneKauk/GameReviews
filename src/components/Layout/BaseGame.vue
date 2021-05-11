@@ -1,7 +1,7 @@
 <template>
   <div class="sHol">
     <label style="" class="searchbarholder">
-      <input placeholder="search" v-model="searchValue" @keypress.enter="searchGames"/>
+      <input type="search" placeholder="search" v-model="searchValue" @keypress.enter="searchGames"/>
     </label>
   </div>
   <div class="buttHol" v-if="!phoneMode">
@@ -17,6 +17,12 @@
 </template>
 
 <script>
+/**
+ * @vue-data {String} category - current value of the category
+ * @vue-data {String} searchValue - current value of searchbar
+ * @vue-event {} load - async method called when component is created to fetch data from the server.
+ * @vue-event {} searchGames - programmatically pushes new route to trigger watcher in another component.
+ */
 
 export default {
   data() {
@@ -43,13 +49,9 @@ export default {
     },
     async load(){
       await this.$store.dispatch("sortedGames", "score");
-      //console.log("Is it ready?(load): "+this.$store.getters.games);
       this.$store.commit("gameListReady", true);
     },
     async searchGames() {
-      // await this.$store.dispatch("searchAction", this.searchValue);
-      //  :key="$route"
-      // this.$router.push({ path: '/search/' + this.searchValue});
       this.$router.push({ name: 'search', params: { search: this.searchValue}});
       this.$store.commit('searchListReady', true);
       

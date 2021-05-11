@@ -36,7 +36,8 @@ const store = createStore( {
             reviewList: null,
             searchResult: null,
             searchListReady: false,
-            isLoggedIn: false
+            isLoggedIn: false,
+            loginSuccess: false,
         }
     },
     mutations: {
@@ -94,11 +95,11 @@ const store = createStore( {
          * @param {*} payload Has user info from a mutation that got it from action that got it from the database
          */
         authenticatedUser(state, payload) {
-            console.log("first login");
-            console.log(payload);
             if(payload !== 'Failed') {
                 state.user = payload;
                 state.isLoggedIn = true;
+            } else {
+                state.loginSuccess = false; 
             }
         },
         isAuth(state, payload) {
@@ -170,7 +171,6 @@ const store = createStore( {
          */
         async querySingleGameAction(context, payload) {
             await axios.get('http://localhost:8081/gamedetails?test=' + payload).then(res => {
-                console.log("single query: "+res.data);
                 context.commit('querySingleGame', res.data);
             })
             
@@ -181,23 +181,16 @@ const store = createStore( {
          * @param {*} payload
          */
         async loginUser(context, payload) {
-            console.log(payload.email);
-            console.log(payload.password);
-            console.log("here");
 
             await instance.post('/login', {email: payload.email, password: payload.password}).then(res => {
-
-                console.log(res.data);
                 context.commit('authenticatedUser', res.data)
             }).catch((error) => {
-                    console.log("error in action");
                     console.log(error.res);
                 }
             )
         },
         async isLoggedInUser(context) {
             await axios.get('http://localhost:8081/login').then((res) => {
-                console.log("after login");
                 console.log(res.data);
                 if(res.loggedIn !== false) {
                     context.commit('isAuth', res.data)
@@ -212,17 +205,13 @@ const store = createStore( {
          * @param {*} payload
          */
         async signupUser(context, payload) {
-            console.log("SIGNUPUSER");
-            console.log(payload);
             await instance.post('/register', { email: payload.email, username: payload.username, password: payload.password }).then(res => {
 
-                console.log(res.data);
                 if(res.data !== 'Failed') {
                     context.dispatch('loginUser', {email: payload.email, password: payload.password});
                 }
                 // context.commit('authenticatedUser', res.data)
             }).catch((error) => {
-                console.log("error");
                 console.log(error.res);
             }
             )
@@ -233,12 +222,9 @@ const store = createStore( {
          * @param {*} payload
          */
         async searchAction(context, payload) {
-            console.log("searchAction" + " " + payload);
             await instance.post('/search?search=' + payload).then(res => {
-                console.log(res.data);
                 context.commit('searchMutation', res.data)
             }).catch((error) => {
-                console.log("error in action");
                 console.log(error.res);
             }
             )
@@ -250,7 +236,6 @@ const store = createStore( {
          * @param {*} payload
          */
         async addReview(context, payload) {
-            console.log("addReviewAction " + payload)
             await instance.post('/addreview', {
                 title: payload.title,
                 review: payload.review,
@@ -263,10 +248,8 @@ const store = createStore( {
                 gameID: context.getters.getSingleGame[0].id
 
             }).then(res => {
-                console.log("return from POST")
                 console.log(res.data)
             }).catch((error) => {
-                console.log('error??')
                 console.log(error.res);
             })
         },
@@ -314,6 +297,9 @@ const store = createStore( {
         },
         getIsLoggedIn(state) {
             return state.isLoggedIn;
+        },
+        getLoginSuccess(state) {
+            return state.loginSuccess;
         }
     }
 });

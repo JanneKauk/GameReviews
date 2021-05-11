@@ -14,16 +14,9 @@
 </template>
 
 <script>
-//import BaseGame from './components/Layout/BaseGame.vue'
-//:key="$route"
+
 export default {
   name: 'App',
-  components: {
-    // HelloWorld,
-    //BaseGame,
-    // GameList
-
-  },
   data() {
     return {
       loginSignUp: 'Login / Sign Up',
@@ -60,6 +53,10 @@ export default {
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
 
 html {
   height: 100%;

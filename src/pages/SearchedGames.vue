@@ -17,6 +17,15 @@
 </template>
 
 <script>
+/**
+ * @vue-data {Boolean} loading - on load is true to wait for async action.
+ * @vue-prop {String} search - string prop to get the searchbar string value. 
+ * @vue-emits {Event} close - emits a click event that closes dialog.
+ * @vue-computed {Object} getList - gets the list from vuex store with getter.
+ * @vue-watch {} search - watches for url change when search activated
+ * @vue-event {} load - async method that sets loading to true and dispatches an action
+ * @vue-event {} created - calls the load method when created.
+ */
 import SearchedElement from '@/components/Lists/SearchedElement.vue';
 export default {
   name: "SearchedGames",
@@ -47,7 +56,6 @@ export default {
   },
   watch: {
       search() {
-          console.log("search triggered")
           this.load();
       }
   },
